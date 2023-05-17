@@ -4,9 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
-* node - struct that holds
+* struct node - struct that holds
 * @car: id for each car in the race
-* @laps: how many laps the car has completed 
+* @laps: how many laps the car has completed
+* @next: pointer to the next node in the list
+* Description: singly linked list struct
 */
 typedef struct node
 {
