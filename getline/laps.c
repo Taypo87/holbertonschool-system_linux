@@ -75,7 +75,7 @@ void race_state(int *id, size_t size)
 		}
 		return;
 	}
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 	{
 		int addracer = 0;
 		node_t *current = head;
