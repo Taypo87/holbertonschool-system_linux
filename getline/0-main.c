@@ -17,8 +17,7 @@ int main()
     race_state(ids1, 3);
     printf("--\n");
     race_state(ids2, 1);
-    //printf("--\n");
-    /*
+    printf("--\n");
     race_state(ids1, 3);
     printf("--\n");
     race_state(ids2, 1);
@@ -33,5 +32,4 @@ int main()
     printf("--\n");
     race_state(NULL, 0);
     return (0);
-    */
 }
