@@ -93,7 +93,7 @@ void race_state(int *id, size_t size)
 		if (!addracer)
 		{
 			head = insertCarInOrder(head, id[i]);
-			printf("Car %i has joined the race!\n", id[i]);
+			printf("Car %i joined the race\n", id[i]);
 		}
 	}
 	displaylap(head);
