@@ -36,14 +36,13 @@ node_t *createNode(int car)
 node_t *insertCarInOrder(node_t *head, int car)
 {
 	node_t *newNode = createNode(car);
+	node_t *current = head;
 
 	if (head == NULL || car < head->car)
 	{
 		newNode->next = head;
 		return (newNode);
 	}
-
-	node_t *current = head;
 
 	while (current->next != NULL && car > current->next->car)
 	{
@@ -62,6 +61,7 @@ node_t *insertCarInOrder(node_t *head, int car)
 */
 void race_state(int *id, size_t size)
 {
+	size_t i;
 	static node_t *head;
 
 	if (size == 0)
@@ -75,7 +75,6 @@ void race_state(int *id, size_t size)
 		}
 		return;
 	}
-	size_t i;
 	for (i = 0; i < size; i++)
 	{
 		int addracer = 0;
