@@ -5,7 +5,8 @@
 #include <stdlib.h>
 /**
 * node - struct that holds
-*
+* @car: id for each car in the race
+* @laps: how many laps the car has completed 
 */
 typedef struct node
 {
