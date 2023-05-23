@@ -9,7 +9,7 @@ char* _getline(const int fd)
 {
     static char* leftovers = NULL;
     static size_t leftovercount = 0;
-    char* temp;
+    char* temp = NULL;
 
     char buffer[READ_SIZE];
     size_t bytesread;
