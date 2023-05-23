@@ -88,7 +88,7 @@ char* _getline(const int fd)
             }
         }
 
-        char* temp = realloc(leftovers, (leftovercount + bytesread) * sizeof(char));
+        temp = realloc(leftovers, (leftovercount + bytesread) * sizeof(char));
         if (temp == NULL)
         {
             fprintf(stderr, "Error: Memory allocation failed\n");
