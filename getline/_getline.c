@@ -4,7 +4,11 @@
 #include <stdlib.h>
 
 #define READ_SIZE 10
-
+/**
+ * _getline - reads bytes until a EOL character is found
+ * @fd: file descriptor
+ * Return: Null terminated string containing the line read or NULL
+*/
 char* _getline(const int fd)
 {
 	static char *leftovers = NULL;
