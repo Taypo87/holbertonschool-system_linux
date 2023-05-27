@@ -42,5 +42,6 @@ int main (int argc, char **argv)
         return(1);
     }
     closedir(dir);
-    return(1);
+    
+    return(EXIT_SUCCESS);
 }
