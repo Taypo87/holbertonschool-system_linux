@@ -40,9 +40,9 @@ int main (int argc, char **argv)
             printf("%s\n", entity->d_name);
             entity = readdir(dir);
         }
-        return(1);
+        return(0);
     }
     closedir(dir);
     
-    return(EXIT_SUCCESS);
+    return(0);
 }
