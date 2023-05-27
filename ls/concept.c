@@ -1,6 +1,6 @@
 #include "concept.h"
 
-void main (int argc, char **argv)
+int main (int argc, char **argv)
 {
     DIR *dir;
 
@@ -10,7 +10,7 @@ void main (int argc, char **argv)
         if (dir == NULL)
         {
             printf("directoy open failed");
-            return;
+            return (1);
         }
         struct dirent *entity;
         entity = readdir(dir);
@@ -26,7 +26,7 @@ void main (int argc, char **argv)
         if (dir == NULL)
         {
             printf("directoy open failed");
-            return;
+            return (1);
         }
         struct dirent *entity;
         entity = readdir(dir);
