@@ -40,8 +40,8 @@ int main (int argc, char **argv)
             printf("%s\n", entity->d_name);
             entity = readdir(dir);
         }
-        return(0);
+        exit(0);
     }
     closedir(dir);
-    return(0);
+    exit(0);
 }
