@@ -37,7 +37,7 @@ int main (int argc, char **argv)
         entity = readdir(dir);
         while (entity != NULL)
         {
-            printf("%s\n", entity->d_name);
+            fprintf(stdout, "%s\n", entity->d_name);
             entity = readdir(dir);
         }
         exit(0);
