@@ -1,6 +1,6 @@
 #include "concept.h"
 
-int main (int argc, char **argv)
+int main ()
 {
    /** DIR *dir;
     struct dirent *entity;
@@ -53,4 +53,5 @@ int main (int argc, char **argv)
     printf("Folder2\n");
     printf("folder3\n");
     printf("hls\n");
+    return(0)
 }
