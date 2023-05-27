@@ -40,10 +40,8 @@ int main (int argc, char **argv)
             printf("%s\n", entity->d_name);
             entity = readdir(dir);
         }
-        fprintf(stderr, "directoy open failed");
         return(0);
     }
     closedir(dir);
-    fprintf(stderr, "directoy open failed");
     return(0);
 }
