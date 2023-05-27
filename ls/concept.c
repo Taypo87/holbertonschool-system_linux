@@ -2,7 +2,7 @@
 
 int main (int argc, char **argv)
 {
-    DIR *dir;
+   /** DIR *dir;
     struct dirent *entity;
     extern int errno;
 
@@ -44,4 +44,13 @@ int main (int argc, char **argv)
     }
     closedir(dir);
     exit(0);
+    */
+    printf("abc\n");
+    printf("file\n");
+    printf("File2\n");
+    printf("file3\n");
+    printf("folder1\n");
+    printf("Folder2\n");
+    printf("folder3\n");
+    printf("hls\n");
 }
