@@ -20,7 +20,7 @@ int main (int argc, char **argv)
         {
             if (entity->d_name[0] != '.')
             {
-                printf("%s\n", entity->d_name);
+                fprintf(stderr, "%s\n", entity->d_name);
             }
             entity = readdir(dir);
         }
