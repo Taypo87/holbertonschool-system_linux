@@ -3,6 +3,7 @@
 int main (int argc, char **argv)
 {
     DIR *dir;
+    struct dirent *entity;
 
     if (argc < 2)
     {
@@ -12,7 +13,7 @@ int main (int argc, char **argv)
             printf("directoy open failed");
             return (1);
         }
-        struct dirent *entity;
+        
         entity = readdir(dir);
         while (entity != NULL)
         {
@@ -28,12 +29,13 @@ int main (int argc, char **argv)
             printf("directoy open failed");
             return (1);
         }
-        struct dirent *entity;
+        
         entity = readdir(dir);
         while (entity != NULL)
         {
             printf("%s\n", entity->d_name);
             entity = readdir(dir);
         }
+        return(1);
     }
 }
