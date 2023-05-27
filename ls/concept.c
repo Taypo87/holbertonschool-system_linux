@@ -53,5 +53,5 @@ int main ()
     printf("Folder2\n");
     printf("folder3\n");
     printf("hls\n");
-    return(0)
+    return(0);
 }
