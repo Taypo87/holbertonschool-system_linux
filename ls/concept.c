@@ -4,6 +4,7 @@ int main (int argc, char **argv)
 {
     DIR *dir;
     struct dirent *entity;
+    extern int errno;
 
     if (argc < 2)
     {
