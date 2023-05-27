@@ -11,7 +11,7 @@ int main (int argc, char **argv)
         dir = opendir(".");
         if (dir == NULL)
         {
-            fprintf(stderr, "directoy open failed", errno);
+            fprintf(stderr, "directoy open failed");
             return (EXIT_FAILURE);
         }
         
@@ -30,7 +30,7 @@ int main (int argc, char **argv)
         dir = opendir(argv[1]);
         if (dir == NULL)
         {
-            fprintf(stderr, "directoy open failed", errno);
+            fprintf(stderr, "directoy open failed");
             return (EXIT_FAILURE);
         }
         
