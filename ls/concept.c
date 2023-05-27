@@ -10,8 +10,8 @@ int main (int argc, char **argv)
         dir = opendir(".");
         if (dir == NULL)
         {
-            printf("directoy open failed");
-            return (1);
+            fprintf(stderr, "directoy open failed", errno);
+            return (EXIT_FAILURE);
         }
         
         entity = readdir(dir);
@@ -29,8 +29,8 @@ int main (int argc, char **argv)
         dir = opendir(argv[1]);
         if (dir == NULL)
         {
-            printf("directoy open failed");
-            return (1);
+            fprintf(stderr, "directoy open failed", errno);
+            return (EXIT_FAILURE);
         }
         
         entity = readdir(dir);
