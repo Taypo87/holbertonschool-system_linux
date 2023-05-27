@@ -17,7 +17,10 @@ int main (int argc, char **argv)
         entity = readdir(dir);
         while (entity != NULL)
         {
-            printf("%s\n", entity->d_name);
+            if (entity->d_name[0] != '.')
+            {
+                printf("%s\n", entity->d_name);
+            }
             entity = readdir(dir);
         }
     }
