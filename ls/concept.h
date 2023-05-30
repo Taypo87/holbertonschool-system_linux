@@ -6,7 +6,29 @@
 #include <string.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include <errno.h>
+#include <time.h>
+
+/**
+* myFile - struct containing information about files or directories
+* @dirent_info: the dirent struct from readdir
+* @stat_info: the stat struct fromn lstat
+* @userName: username of the file
+* @fileName: the filename
+*/
+struct myFile {
+	struct dirent *dirent_info;
+	struct stat stat_info;
+	char *userName;
+	char *fileName;
+};
+
+struct myFile *loadStruct(char *target);
+void sortStruct(struct myFile *fileList);
+int compareString(char *string1, char *string2);
+
 
 
 #endif

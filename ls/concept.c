@@ -1,57 +1,45 @@
 #include "concept.h"
-
-int main ()
+/**
+* main - main function in the program, dictates flow and function call
+* @argc: number of arguments passed to the program
+* @argv: array containing the arguments passed 
+* Return: 0
+*/
+int main (int argc, char *argv[])
 {
-   /** DIR *dir;
-    struct dirent *entity;
-    extern int errno;
+	struct myFile *entry;
+	char *target;
+	int i = 0;
 
-    if (argc < 2)
-    {
-        dir = opendir(".");
-        if (dir == NULL)
-        {
-            fprintf(stderr, "directoy open failed");
-            return (EXIT_FAILURE);
-        }
-        
-        entity = readdir(dir);
-        while (entity != NULL)
-        {
-            if (entity->d_name[0] != '.')
-            {
-                fprintf(stdout, "%s\n", entity->d_name);
-            }
-            entity = readdir(dir);
-        }
-    }
-    else
-    {
-        dir = opendir(argv[1]);
-        if (dir == NULL)
-        {
-            fprintf(stderr, "directoy open failed");
-            return (EXIT_FAILURE);
-        }
-        
-        entity = readdir(dir);
-        while (entity != NULL)
-        {
-            fprintf(stdout, "%s\n", entity->d_name);
-            entity = readdir(dir);
-        }
-        exit(0);
-    }
-    closedir(dir);
-    exit(0);
-    */
-    printf("abc\n");
-    printf("file\n");
-    printf("File2\n");
-    printf("file3\n");
-    printf("folder1\n");
-    printf("Folder2\n");
-    printf("folder3\n");
-    printf("hls\n");
-    return(0);
+	if (argc == 1)
+	{
+		target = ".";
+		entry = loadStruct(target);
+		sortStruct(entry);
+		while(entry[i].fileName != NULL)
+		{
+			if (entry[i].fileName[0] != '.')
+		
+			printf("%s\n", entry[i].fileName);
+			i++;
+		}
+/**
+* get a list of d_name, sort and print
+*/ 
+	}
+	else
+	{   for (i = 1; i < argc; i++)
+		{	
+			if (argv[i][0] != '-')
+			{
+				target = (argv[i]);
+				entry = loadStruct(target);
+			}
+/**
+*		// if argv[1][0] != '-' then its a directory name, modify above code
+*		// we'll have to check for multiple arguments and directories!!! wtf
+*/
+		}
+	}
+	return(0);
 }
