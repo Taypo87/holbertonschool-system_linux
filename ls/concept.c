@@ -41,5 +41,6 @@ int main (int argc, char *argv[])
 */
 		}
 	}
+	free(entry);
 	return(0);
 }
