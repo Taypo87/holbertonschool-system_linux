@@ -67,7 +67,7 @@ void sortStruct(struct myFile *fileList)
 * compareString - compares two strings for sorting alphabetically
 * @string1: string to compare
 * @string2: string to compare to
-* Return: 1 to swap, 0 if not
+* Return: 1 to swap, 0 if not -1 on error
 */
 int compareString(char *string1, char *string2)
 {
@@ -98,5 +98,6 @@ int compareString(char *string1, char *string2)
 		}
 		i++;
 	}
+    return (-1);
 }
 
