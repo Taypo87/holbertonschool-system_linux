@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <time.h>
+#include <limits.h>
 
 /**
 * myFile - struct containing information about files or directories
@@ -28,6 +29,7 @@ struct myFile {
 struct myFile *loadStruct(char *target);
 void sortStruct(struct myFile *fileList);
 int compareString(char *string1, char *string2);
+size_t stringLength(const char *string);
 
 
 

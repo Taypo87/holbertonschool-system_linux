@@ -16,31 +16,38 @@ int main (int argc, char *argv[])
 		target = ".";
 		entry = loadStruct(target);
 		sortStruct(entry);
-		while(entry[i].fileName != NULL)
+		while(entry[i].fileName[0] != '\0')
 		{
 			if (entry[i].fileName[0] != '.')
-		
+			{
 			printf("%s\n", entry[i].fileName);
+			}
 			i++;
 		}
+		free(entry);
 /**
 * get a list of d_name, sort and print
 */ 
+/**
 	}
 	else
-	{   for (i = 1; i < argc; i++)
+	{
+		va_list args;
+		//va_start(args, argc);
+
+		for (i = 1; i < argc; i++)
 		{	
 			if (argv[i][0] != '-')
 			{
 				target = (argv[i]);
 				entry = loadStruct(target);
 			}
-/**
+/**	
 *		// if argv[1][0] != '-' then its a directory name, modify above code
 *		// we'll have to check for multiple arguments and directories!!! wtf
 */
-		}
+//		}
 	}
-	free(entry);
+	
 	return(0);
 }
