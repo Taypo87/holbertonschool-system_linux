@@ -21,6 +21,7 @@ struct myFile *loadStruct(char *target)
         nameLength = stringLength(entity->d_name);
         sprintf(file_path, "%s/%s", target, entity->d_name);
 		fileList[i].dirent_info = entity;
+		fileList[i].userName = NULL;
         fileList[i].fileName = malloc((nameLength + 1) * sizeof(char));
         fileList[i].fileName[0] = '\0';
 		sprintf(fileList[i].fileName, "%s", entity->d_name);
@@ -51,7 +52,7 @@ void sortStruct(struct myFile *fileList)
 	struct myFile temp2;
 	int swap = 0;
 
-	while (fileList[i + 1].fileName != NULL)
+	while (fileList[i + 1].fileName != NULL && fileList[i].fileName[0] != '\0')
 	{
 		swap = compareString(fileList[i].fileName, fileList[i + 1].fileName);
 		if (swap == 1)

@@ -16,7 +16,7 @@ int main (int argc, char *argv[])
 		target = ".";
 		entry = loadStruct(target);
 		sortStruct(entry);
-		while(entry[i].fileName[0] != '\0')
+		while(entry[i].fileName != NULL)
 		{
 			if (entry[i].fileName[0] != '.')
 			{
