@@ -14,6 +14,10 @@ struct myFile *loadStruct(char *target)
     char file_path[PATH_MAX + 1];
 
 	fileList = malloc(list_size * sizeof(struct myFile));
+	for (i = 0; i < list_size; i++)
+	{
+		fileList[i].stat_info = NULL;
+	}
 	dir = opendir(target);	  
 	entity = readdir(dir);
 	while (entity != NULL)
@@ -22,11 +26,11 @@ struct myFile *loadStruct(char *target)
         sprintf(file_path, "%s/%s", target, entity->d_name);
 		fileList[i].dirent_info = entity;
 		fileList[i].userName = NULL;
-        fileList[i].fileName = malloc((nameLength + 1) * sizeof(char));
+        fileList[i].fileName = malloc((nameLength + 2) * sizeof(char));
         fileList[i].fileName[0] = '\0';
 		sprintf(fileList[i].fileName, "%s", entity->d_name);
-		lstat(file_path, &fileStat);
-		fileList[i].stat_info = fileStat;
+		fileList[i].stat_info = malloc(sizeof(struct stat));
+		lstat(file_path, fileList[i].stat_info);
 		entity = readdir(dir);
 		i++;
 		if (i == (list_size - 1))
@@ -52,8 +56,10 @@ void sortStruct(struct myFile *fileList)
 	struct myFile temp2;
 	int swap = 0;
 
-	while (fileList[i + 1].fileName != NULL && fileList[i].fileName[0] != '\0')
+	while (fileList[i + 1].fileName != NULL)
 	{
+		if (fileList[i].stat_info != NULL && fileList[i + 1].stat_info != NULL)
+		{
 		swap = compareString(fileList[i].fileName, fileList[i + 1].fileName);
 		if (swap == 1)
 		{   
@@ -66,6 +72,11 @@ void sortStruct(struct myFile *fileList)
 		else 
 		{
 			i++;
+		}
+		}
+		else
+		{
+			break;
 		}
 	}
 }

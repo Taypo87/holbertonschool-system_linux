@@ -21,7 +21,7 @@
 */
 struct myFile {
 	struct dirent *dirent_info;
-	struct stat stat_info;
+	struct stat *stat_info;
 	char *userName;
 	char *fileName;
 };
