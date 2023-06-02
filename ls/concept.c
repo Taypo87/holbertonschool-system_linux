@@ -47,7 +47,7 @@ int main (int argc, char *argv[])
 			}
 /**	
 *		// if argv[1][0] != '-' then its a directory name, modify above code
-*		// we'll have to check for multiple arguments and directories!!! wtf
+*		// we'll have to check for multiple arguments and directories!!!
 */
 		}
 	}
