@@ -26,7 +26,7 @@ void sortStruct(struct myFile *fileList, char *target)
 				temp2 = fileList[i + 1];
 				fileList[i] = temp2;
 				fileList[i+1] = temp;
-				i++;
+				i = 0;
 			}
 			else 
 			{
