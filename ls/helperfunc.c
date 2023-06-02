@@ -15,7 +15,7 @@ void sortStruct(struct myFile *fileList, char *target)
 	size_t list_size = 0;
 	list_size = listLength(target);
 
-	while (i < list_size - 1)
+	while (i < list_size)
 	{
 		if (fileList[i].stat_info != NULL && fileList[i + 1].stat_info != NULL)
 		{
