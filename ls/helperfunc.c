@@ -6,14 +6,16 @@
 * Return: void
 */
 
-void sortStruct(struct myFile *fileList)
+void sortStruct(struct myFile *fileList, char *target)
 {
-	int i = 0;
+	size_t i = 0;
 	struct myFile temp;
 	struct myFile temp2;
 	int swap = 0;
+	size_t list_size = 0;
+	list_size = list_length(target);
 
-	while (fileList[i + 1].fileName != NULL)
+	while (i < list_size - 1)
 	{
 		if (fileList[i].stat_info != NULL && fileList[i + 1].stat_info != NULL)
 		{

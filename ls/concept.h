@@ -27,7 +27,7 @@ struct myFile {
 };
 
 struct myFile *loadStruct(char *target);
-void sortStruct(struct myFile *fileList);
+void sortStruct(struct myFile *fileList, char *target);
 int compareString(char *string1, char *string2);
 size_t stringLength(const char *string);
 struct myFile *direntLoad(char *target);

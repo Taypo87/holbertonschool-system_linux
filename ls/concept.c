@@ -10,14 +10,16 @@ int main (int argc, char *argv[])
 	struct myFile *fileList;
 	char *target;
 	int i = 0;
+	size_t list_size = 0;
 
 	if (argc == 1)
 	{
 		target = ".";
+		list_size = list_length(target);
 		fileList = direntLoad(target);
 		statLoad(fileList, target);
-		sortStruct(fileList);
-		while(fileList[i].fileName != NULL)
+		sortStruct(fileList, target);
+		while(i < list_size)
 		{
 			if (fileList[i].fileName[0] != '.')
 			{
