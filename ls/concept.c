@@ -36,8 +36,6 @@ int main (int argc, char *argv[])
 	}
 	else
 	{
-		va_list args;
-		va_start(args, argc);
 
 		for (i = 1; i < argc; i++)
 		{	
