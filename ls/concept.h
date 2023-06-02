@@ -30,7 +30,10 @@ struct myFile *loadStruct(char *target);
 void sortStruct(struct myFile *fileList);
 int compareString(char *string1, char *string2);
 size_t stringLength(const char *string);
-
+struct myFile *direntLoad(char *target);
+void statLoad(struct myFile *fileList, char *target);
+size_t list_length(char *target);
+void freeStructMembers(struct myFile *fileList, char *target);
 
 
 #endif

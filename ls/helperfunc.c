@@ -1,47 +1,4 @@
 #include "concept.h"
-/**
-* loadStruct - opens a directory and fills myFile struct array
-* @target: the target directory
-* Return: pointer to the populated struct array
-*/
-struct myFile *loadStruct(char *target)
-{
-	DIR *dir;
-	struct stat fileStat;
-	struct dirent *entity;
-	struct myFile *fileList;
-	size_t list_size = 20, i = 0, nameLength = 0;
-    char file_path[PATH_MAX + 1];
-
-	fileList = malloc(list_size * sizeof(struct myFile));
-	for (i = 0; i < list_size; i++)
-	{
-		fileList[i].stat_info = NULL;
-	}
-	dir = opendir(target);	  
-	entity = readdir(dir);
-	while (entity != NULL)
-	{
-        nameLength = stringLength(entity->d_name);
-        sprintf(file_path, "%s/%s", target, entity->d_name);
-		fileList[i].dirent_info = entity;
-		fileList[i].userName = NULL;
-        fileList[i].fileName = malloc((nameLength + 2) * sizeof(char));
-        fileList[i].fileName[0] = '\0';
-		sprintf(fileList[i].fileName, "%s", entity->d_name);
-		fileList[i].stat_info = malloc(sizeof(struct stat));
-		lstat(file_path, fileList[i].stat_info);
-		entity = readdir(dir);
-		i++;
-		if (i == (list_size - 1))
-		{
-			list_size += 20;
-			fileList = realloc(fileList, list_size * sizeof(struct myFile));
-		}
-	}
-	closedir(dir);
-	return (fileList);
-}
 
 /**
 * sortStruct - Sorts structs by file name alphabetically
@@ -61,18 +18,18 @@ void sortStruct(struct myFile *fileList)
 		if (fileList[i].stat_info != NULL && fileList[i + 1].stat_info != NULL)
 		{
 		swap = compareString(fileList[i].fileName, fileList[i + 1].fileName);
-		if (swap == 1)
-		{   
-			temp = fileList[i];
-			temp2 = fileList[i + 1];
-			fileList[i] = temp2;
-			fileList[i+1] = temp;
+			if (swap == 1)
+			{   
+				temp = fileList[i];
+				temp2 = fileList[i + 1];
+				fileList[i] = temp2;
+				fileList[i+1] = temp;
+				i++;
+			}
+			else 
+			{
 			i++;
-		}
-		else 
-		{
-			i++;
-		}
+			}
 		}
 		else
 		{

@@ -7,24 +7,26 @@
 */
 int main (int argc, char *argv[])
 {
-	struct myFile *entry;
+	struct myFile *fileList;
 	char *target;
 	int i = 0;
 
 	if (argc == 1)
 	{
 		target = ".";
-		entry = loadStruct(target);
-		sortStruct(entry);
-		while(entry[i].fileName != NULL)
+		fileList = direntLoad(target);
+		statLoad(fileList, target);
+		sortStruct(fileList);
+		while(fileList[i].fileName != NULL)
 		{
-			if (entry[i].fileName[0] != '.')
+			if (fileList[i].fileName[0] != '.')
 			{
-			printf("%s\n", entry[i].fileName);
+			printf("%s\n", fileList[i].fileName);
 			}
 			i++;
 		}
-		free(entry);
+		freeStructMembers(fileList, target);
+		free(fileList);
 /**
 * get a list of d_name, sort and print
 */ 
