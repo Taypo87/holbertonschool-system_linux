@@ -13,7 +13,7 @@ void sortStruct(struct myFile *fileList, char *target)
 	struct myFile temp2;
 	int swap = 0;
 	size_t list_size = 0;
-	list_size = list_length(target);
+	list_size = listLength(target);
 
 	while (i < list_size - 1)
 	{
@@ -97,4 +97,15 @@ size_t stringLength(const char *string)
         length++;
     }
     return(length);
+}
+
+void copyString(char *string, char *dest)
+{
+	size_t i = 0;
+
+	for (i = 0; string[i] != '\0'; i++)
+	{
+		dest[i] = string[i];
+	}
+	dest[i] = '\0';
 }

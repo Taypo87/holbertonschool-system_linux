@@ -16,7 +16,7 @@ int main (int argc, char *argv[])
 	if (argc == 1)
 	{
 		target = ".";
-		list_size = list_length(target);
+		list_size = listLength(target);
 		fileList = direntLoad(target);
 		statLoad(fileList, target);
 		sortStruct(fileList, target);

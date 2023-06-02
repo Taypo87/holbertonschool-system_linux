@@ -7,7 +7,7 @@ struct myFile *direntLoad(char *target)
     struct myFile *fileList = NULL;
     size_t list_size = 0, i = 0, nameLength = 0;
 
-    list_size = list_length(target);
+    list_size = listLength(target);
     dir = opendir(target);
     entity = readdir(dir);
     fileList = malloc(list_size * sizeof(struct myFile));
@@ -18,7 +18,7 @@ struct myFile *direntLoad(char *target)
         fileList[i].stat_info = NULL;
 		fileList[i].userName = NULL;
         fileList[i].fileName = malloc((nameLength + 1) * sizeof(char));
-		sprintf(fileList[i].fileName, "%s", entity->d_name);
+		copyString(entity->d_name, fileList[i].fileName);
 		entity = readdir(dir);
 		i++;
     }
@@ -32,7 +32,7 @@ void statLoad(struct myFile *fileList, char *target)
     char file_path[PATH_MAX + 1];
     size_t i = 0;
     size_t list_size = 0;
-    list_size = list_length(target);
+    list_size = listLength(target);
     while (i < list_size)
     {
         sprintf(file_path, "%s/%s", target, fileList[i].fileName);
@@ -42,7 +42,7 @@ void statLoad(struct myFile *fileList, char *target)
     }
 }
 
-size_t list_length(char *target)
+size_t listLength(char *target)
 {
     DIR *dir;
     struct dirent *entity;
@@ -63,7 +63,7 @@ void freeStructMembers(struct myFile *fileList, char *target)
 {
     size_t i = 0;
 
-    while (i < list_length(target))
+    while (i < listLength(target))
     {
         free(fileList[i].fileName);
         free(fileList[i].stat_info);
