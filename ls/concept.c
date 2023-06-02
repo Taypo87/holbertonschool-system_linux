@@ -9,7 +9,7 @@ int main (int argc, char *argv[])
 {
 	struct myFile *fileList;
 	char *target;
-	int i = 0;
+	size_t i = 0;
 	size_t list_size = 0;
 
 	if (argc == 1)
@@ -32,12 +32,12 @@ int main (int argc, char *argv[])
 /**
 * get a list of d_name, sort and print
 */ 
-/**
+
 	}
 	else
 	{
 		va_list args;
-		//va_start(args, argc);
+		va_start(args, argc);
 
 		for (i = 1; i < argc; i++)
 		{	
@@ -50,7 +50,7 @@ int main (int argc, char *argv[])
 *		// if argv[1][0] != '-' then its a directory name, modify above code
 *		// we'll have to check for multiple arguments and directories!!! wtf
 */
-//		}
+		}
 	}
 	
 	return(0);
