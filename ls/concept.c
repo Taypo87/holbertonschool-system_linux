@@ -9,6 +9,7 @@ int main (int argc, char *argv[])
 {
 	struct myFile *fileList;
 	char *target;
+	int x = 0;
 	size_t i = 0;
 	size_t list_size = 0;
 
@@ -37,12 +38,12 @@ int main (int argc, char *argv[])
 	else
 	{
 
-		for (i = 1; i < argc; i++)
+		for (x = 1; x < argc; x++)
 		{	
-			if (argv[i][0] != '-')
+			if (argv[x][0] != '-')
 			{
-				target = (argv[i]);
-				entry = loadStruct(target);
+				target = (argv[x]);
+				
 			}
 /**	
 *		// if argv[1][0] != '-' then its a directory name, modify above code
