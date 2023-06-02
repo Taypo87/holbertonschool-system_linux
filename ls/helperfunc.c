@@ -56,10 +56,6 @@ int compareString(char *string1, char *string2)
 		stringValue1 = string1[i];
 		stringValue2 = string2[i];
 
-        if (stringValue1 == '\0' && stringValue2 == '\0')
-        {
-            return (-1);
-        }
         if (stringValue1 == '\0' && stringValue2 != '\0')
         {
             return (0);
