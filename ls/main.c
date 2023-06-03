@@ -4,7 +4,7 @@ int main(int argc, char *argv[])
 {
     struct myFile *fileList;
 	char *targets[16] = {NULL};
-	int x = 1, i = 0;
+	int x = 0, i = 0;
 
     if (argc == 1)
         targets[0] = ".";
@@ -13,20 +13,23 @@ int main(int argc, char *argv[])
         if (argv[x][0] != '-')
         {
             if(checkArg(argv[x]) == 1)
+            {
                 targets[i] = argv[x];
+                i++;
+            }
         }
     }
-
-    for (i = 0; i < x - 1; i++)
+    for (x = 0; x < i; x++)
     {
-        if (targets[i] != NULL)
+        if (targets[x])
         {
-            fileList = direntLoad(targets[i]);
-		    statLoad(fileList, targets[i]);
-		    sortStruct(fileList, targets[i]);
-            printList(fileList, targets[i]);
-            freeStructMembers(fileList, targets[i]);
+            fileList = direntLoad(targets[x]);
+		    statLoad(fileList, targets[x]);
+		    sortStruct(fileList, targets[x]);
+            printList(fileList, targets[x]);
+            freeStructMembers(fileList, targets[x]);
             free(fileList);
+            printf("\n");
         }
     }
     return (0);
