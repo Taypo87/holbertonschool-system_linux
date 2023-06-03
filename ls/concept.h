@@ -37,7 +37,8 @@ void freeStructMembers(struct myFile *fileList, char *target);
 void copyString(char *string, char *dest);
 void printList(struct myFile *fileList, char *target);
 int checkArg(char *target, char **argv);
-void selectPrint(struct myFile *fileList, char *target, char *option);
+void selectPrint(struct myFile *fileList, char *target, char option);
+void printLista(struct myFile *fileList, char *target);
 
 
 

@@ -3,9 +3,8 @@
 int main(int argc, char *argv[])
 {
     struct myFile *fileList;
-	char *targets[16] = {NULL}, *option = NULL;
+	char *targets[16] = {NULL}, option = '\0';
 	int x = 0, i = 0, flag = 0, check = 0;
-
     if (argc == 1)
     {
         targets[0] = ".";
@@ -25,7 +24,7 @@ int main(int argc, char *argv[])
             }
         }
         if (argv[x][0] == '-')
-                option[0] = argv[x][1];
+                option = argv[x][1];
     }
     if (check == 0 && argc > 1)
         printf("\n");
