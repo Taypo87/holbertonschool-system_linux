@@ -7,7 +7,10 @@ int main(int argc, char *argv[])
 	int x = 0, i = 0;
 
     if (argc == 1)
+    {
         targets[0] = ".";
+        i = 1;
+    }
     for (x = 1; x < argc; x++)
     {
         if (argv[x][0] != '-')
@@ -23,6 +26,9 @@ int main(int argc, char *argv[])
     {
         if (targets[x])
         {
+            if (i > 1)
+                printf("%s:\n", targets[x]);
+
             fileList = direntLoad(targets[x]);
 		    statLoad(fileList, targets[x]);
 		    sortStruct(fileList, targets[x]);
