@@ -4,7 +4,7 @@
 * returns 0 for file, 1 for folder, -1 if does not exist
 */
 
-int checkArg(char *target char **argv)
+int checkArg(char *target, char **argv)
 {
     struct stat file_stat;
 
