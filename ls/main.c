@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     {
         if (targets[x])
         {
-            if (i > 1 || flag == 1)
+            if (i > 1 || flag == 1 || check == 0)
                 printf("%s:\n", targets[x]);
 
             fileList = direntLoad(targets[x]);
