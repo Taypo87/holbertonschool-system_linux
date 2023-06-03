@@ -6,11 +6,9 @@
 
 int checkArg(char *target)
 {
-    int exists = 0;
     struct stat *file_stat;
 
-    exists = lstat(target, file_stat);
-    if (exists == -1)
+    if (lstat(target, file_stat) = -1)
         return (-1);
     else
     {
