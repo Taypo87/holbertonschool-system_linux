@@ -41,6 +41,7 @@ void statLoad(struct myFile *fileList, char *target)
 	char file_path[PATH_MAX + 1];
 	size_t i = 0;
 	size_t list_size = 0;
+
 	list_size = listLength(target);
 	while (i < list_size)
 	{

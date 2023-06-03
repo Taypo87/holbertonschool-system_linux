@@ -3,9 +3,9 @@
 /**
 * sortStruct - Sorts structs by file name alphabetically
 * @fileList: the array to be sorted
+* @target: the target directory for the ls command
 * Return: void
 */
-
 void sortStruct(struct myFile *fileList, char *target)
 {
 	size_t i = 0;
@@ -13,22 +13,22 @@ void sortStruct(struct myFile *fileList, char *target)
 	struct myFile temp2;
 	int swap = 0;
 	size_t list_size = 0;
-	list_size = listLength(target);
 
+	list_size = listLength(target);
 	while (i < list_size - 1)
 	{
 		if (fileList[i].stat_info != NULL && fileList[i + 1].stat_info != NULL)
 		{
 		swap = compareString(fileList[i].fileName, fileList[i + 1].fileName);
 			if (swap == 1)
-			{   
+			{
 				temp = fileList[i];
 				temp2 = fileList[i + 1];
 				fileList[i] = temp2;
-				fileList[i+1] = temp;
+				fileList[i + 1] = temp;
 				i = 0;
 			}
-			else 
+			else
 			{
 			i++;
 			}
@@ -51,7 +51,7 @@ int compareString(char *string1, char *string2)
 	char stringValue1;
 	char stringValue2;
 
-	while(string1[i] != '\0')
+	while (string1[i] != '\0')
 	{
 		stringValue1 = string1[i];
 		stringValue2 = string2[i];
@@ -64,11 +64,11 @@ int compareString(char *string1, char *string2)
 		{
 			return (1);
 		}
-		if(stringValue1 > 64 && stringValue1 < 91)
+		if (stringValue1 > 64 && stringValue1 < 91)
 		{
 			stringValue1 += 32;
 		}
-		if(stringValue2 > 64 && stringValue2 < 91)
+		if (stringValue2 > 64 && stringValue2 < 91)
 		{
 			stringValue2 += 32;
 		}
@@ -92,11 +92,12 @@ int compareString(char *string1, char *string2)
 size_t stringLength(const char *string)
 {
 	size_t length = 0;
+
 	while (string[length] != '\0')
 	{
 		length++;
 	}
-	return(length);
+	return (length);
 }
 /**
 * copyString - copies a string

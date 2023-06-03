@@ -5,12 +5,12 @@
 * @argv: array containing the arguments passed
 * Return: 0
 */
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	struct myFile *fileList;
 	char *target;
 	int x = 0;
-	size_t list_size = 0, i= 0;
+	size_t list_size = 0, i = 0;
 
 	if (argc == 1)
 	{
@@ -19,7 +19,7 @@ int main (int argc, char *argv[])
 		fileList = direntLoad(target);
 		statLoad(fileList, target);
 		sortStruct(fileList, target);
-		while(i < list_size)
+		while (i < list_size)
 		{
 			if (fileList[i].fileName[0] != '.')
 			{
