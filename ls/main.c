@@ -10,7 +10,12 @@ int main(int argc, char *argv[])
     for (x = 1; x < argc; x++)
     {
         if (argv[x][0] != '-')
-            targets[i] = argv[x];
+        {
+            if(checkArg(argv[x]) = 1)
+                targets[i] = argv[x];
+            if(checkArg(argv[x]) = 0)
+                printf("%s\n", argv[x]);
+        }
     }
 
     for (i = 0; i < x - 1; i++)

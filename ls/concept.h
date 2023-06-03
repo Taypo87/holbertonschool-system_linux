@@ -36,6 +36,8 @@ size_t listLength(char *target);
 void freeStructMembers(struct myFile *fileList, char *target);
 void copyString(char *string, char *dest);
 void printList(struct myFile *fileList, char *target);
+int checkArg(char *target);
+
 
 
 #endif
