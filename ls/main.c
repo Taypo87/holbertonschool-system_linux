@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
             targets[i] = argv[x];
     }
 
-    for (i = 0; i < x; i++)
+    for (i = 0; i < x - 1; i++)
     {
         fileList = direntLoad(targets[i]);
 		statLoad(fileList, targets[i]);
