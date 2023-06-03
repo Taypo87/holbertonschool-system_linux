@@ -3,7 +3,7 @@
 int main(int argc, char *argv[])
 {
     struct myFile *fileList;
-	char *targets[16] = {NULL};
+	char *targets[16] = {NULL}, *option = NULL;
 	int x = 0, i = 0, flag = 0, check = 0;
 
     if (argc == 1)
@@ -24,20 +24,22 @@ int main(int argc, char *argv[])
                 i++;
             }
         }
+        if (argv[x][0] == '-')
+                option[0] = argv[x][1];
     }
-    if (check == 0)
+    if (check == 0 && argc > 1)
         printf("\n");
     for (x = 0; x < i; x++)
     {
         if (targets[x])
         {
-            if (i > 1 || flag == 1 || check == 0)
+            if ((i > 1 && argc > 1) || (flag == 1 && argc > 1) || (check == 0 && argc > 1))
                 printf("%s:\n", targets[x]);
 
             fileList = direntLoad(targets[x]);
 		    statLoad(fileList, targets[x]);
 		    sortStruct(fileList, targets[x]);
-            printList(fileList, targets[x]);
+            selectPrint(fileList, targets[x], option);
             freeStructMembers(fileList, targets[x]);
             free(fileList);
             printf("\n");

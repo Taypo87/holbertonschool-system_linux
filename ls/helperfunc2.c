@@ -31,3 +31,9 @@ int checkArg(char *target, char **argv)
 
     return(-1);
 }
+
+void selectPrint(struct myFile *fileList, char *target, char *option)
+{
+    if (option == NULL || option[0] == '1')
+        printList(fileList, target);
+}
