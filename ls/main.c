@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 	char *targets[16];
 	int x = 1, i = 0;
 
-    if (argc = 1)
+    if (argc == 1)
         targets[0] = ".";
     for (x = 1; x < argc; x++)
     {
