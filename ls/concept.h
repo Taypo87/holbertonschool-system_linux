@@ -18,7 +18,7 @@
 * @userName: username of the file
 * @fileName: the filename
 */
-struct myFile 
+struct myFile
 {
 	struct dirent *dirent_info;
 	struct stat *stat_info;
