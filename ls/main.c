@@ -1,8 +1,5 @@
 #include "concept.h"
 
-// first check for no args being passed ie argc = 1
-// otherwise take all the arguemnts and store them in an array if they aren't options. if they are we'll handle those in a different manner
-
 int main(int argc, char *argv[])
 {
     struct myFile *fileList;
@@ -17,7 +14,7 @@ int main(int argc, char *argv[])
         else
             option = argv[x];
     }
-// we'll have to do some option handling, switch case for the print function being used?
+
     for (i = 0; i < x; i++)
     {
         fileList = direntLoad(targets[i]);
@@ -27,4 +24,5 @@ int main(int argc, char *argv[])
         freeStructMembers(fileList, targets[i]);
         free(fileList);
     }
+    return (0);
 }
