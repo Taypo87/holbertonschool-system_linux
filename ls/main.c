@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     {
         if (argv[x][0] != '-')
         {
-            check = checkArg(argv[x]);
+            check = checkArg(argv[x], argv);
             if (check == -1)
                 flag = 1;
             if (check == 1)

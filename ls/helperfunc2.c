@@ -4,13 +4,13 @@
 * returns 0 for file, 1 for folder, -1 if does not exist
 */
 
-int checkArg(char *target)
+int checkArg(char *target char **argv)
 {
     struct stat file_stat;
 
     if (lstat(target, &file_stat) == -1)
     {
-        fprintf(stderr, "./hls_01: cannot access %s: No such file or directory\n", target);
+        fprintf(stderr, "%s: cannot access %s: No such file or directory\n",argv[0] ,target);
         return (-1);
     }
     if (S_ISREG(file_stat.st_mode))
@@ -22,7 +22,7 @@ int checkArg(char *target)
     {
         if ((file_stat.st_mode & S_IRUSR) == 0 || (file_stat.st_mode & S_IXUSR) == 0)
         {
-            fprintf(stderr, "./hls_01: cannot open directory %s: Permission denied\n", target);
+            fprintf(stderr, "%s: cannot open directory %s: Permission denied\n",argv[0] ,target);
             return (-1);
         }
         return (1);
