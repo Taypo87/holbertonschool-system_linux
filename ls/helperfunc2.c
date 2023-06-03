@@ -22,7 +22,7 @@ int checkArg(char *target)
     {
         if ((file_stat.st_mode & S_IRUSR) == 0 || (file_stat.st_mode & S_IXUSR) == 0)
         {
-            fprintf(stderr, "./hls_01: cannot open directory %s: Permission denied", target);
+            fprintf(stderr, "./hls_01: cannot open directory %s: Permission denied\n", target);
             return (-1);
         }
         return (1);
