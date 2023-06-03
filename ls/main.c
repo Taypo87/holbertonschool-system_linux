@@ -11,9 +11,9 @@ int main(int argc, char *argv[])
     {
         if (argv[x][0] != '-')
         {
-            if(checkArg(argv[x]) = 1)
+            if(checkArg(argv[x]) == 1)
                 targets[i] = argv[x];
-            if(checkArg(argv[x]) = 0)
+            if(checkArg(argv[x]) == 0)
                 printf("%s\n", argv[x]);
         }
     }

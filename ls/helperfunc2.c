@@ -8,16 +8,16 @@ int checkArg(char *target)
 {
     char file_path[PATH_MAX + 1];
     int exists = 0;
-    struct stat file_stat;
+    struct stat *file_stat;
 
-    exists = lstat(target, file_stat)
+    exists = lstat(target, file_stat);
     if (exists == -1)
-        return (-1)
+        return (-1);
     else
     {
-        if (S_ISREG(file_stat.st_mode))
+        if (S_ISREG(file_stat->st_mode))
             return (0);
-        if (S_ISDIR(file_stat.st_mode))
+        if (S_ISDIR(file_stat->st_mode))
             return (1);
     }
     return(-1);
