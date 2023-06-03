@@ -8,7 +8,7 @@ int checkArg(char *target)
 {
     struct stat *file_stat;
 
-    if (lstat(target, file_stat) = -1)
+    if (lstat(target, file_stat) == -1)
         return (-1);
     else
     {
