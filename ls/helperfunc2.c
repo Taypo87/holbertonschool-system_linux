@@ -15,7 +15,7 @@ int checkArg(char *target, char **argv)
     }
     if (S_ISREG(file_stat.st_mode))
     {
-        printf("%s\n\n", target);
+        printf("%s\n", target);
         return (0);
     }
     if (S_ISDIR(file_stat.st_mode))
