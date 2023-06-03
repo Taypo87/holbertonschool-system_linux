@@ -76,7 +76,7 @@ size_t listLength(char *target)
 * freeStructMembers - frees members of the myFile struct
 * @fileList: the struct to free
 * @target: the target directory for the ls command
-* Return: 1 to swap, 0 if not -1 on error
+* Return: void
 */
 void freeStructMembers(struct myFile *fileList, char *target)
 {
@@ -88,4 +88,18 @@ void freeStructMembers(struct myFile *fileList, char *target)
 		free(fileList[i].stat_info);
 		i++;
 	}
+}
+
+void printList(struct myFile *fileList, char *target)
+{
+    size_t i = 0;
+
+    while (i < listLength(target))
+    {
+        if (fileList[i].fileName[0] != '.')
+        {
+            printf("%s\n", fileList[i].fileName);
+        }
+        i++;
+    }
 }
