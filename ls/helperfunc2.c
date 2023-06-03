@@ -6,15 +6,15 @@
 
 int checkArg(char *target)
 {
-    struct stat *file_stat;
+    struct stat file_stat;
 
-    if (lstat(target, file_stat) == -1)
+    if (lstat(target, &file_stat) == -1)
         return (-1);
     else
     {
-        if (S_ISREG(file_stat->st_mode))
+        if (S_ISREG(file_stat.st_mode))
             return (0);
-        if (S_ISDIR(file_stat->st_mode))
+        if (S_ISDIR(file_stat.st_mode))
             return (1);
     }
     return(-1);
