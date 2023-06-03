@@ -4,7 +4,7 @@ int main(int argc, char *argv[])
 {
     struct myFile *fileList;
 	char *targets[16] = {NULL};
-	int x = 0, i = 0;
+	int x = 0, i = 0, flag = 0;
 
     if (argc == 1)
     {
@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
     {
         if (argv[x][0] != '-')
         {
+            if(checkArg(argv[x]) == -1)
+                flag = 1;
             if(checkArg(argv[x]) == 1)
             {
                 targets[i] = argv[x];
@@ -26,7 +28,7 @@ int main(int argc, char *argv[])
     {
         if (targets[x])
         {
-            if (i > 1)
+            if (i > 1 || flag == 1)
                 printf("%s:\n", targets[x]);
 
             fileList = direntLoad(targets[x]);
