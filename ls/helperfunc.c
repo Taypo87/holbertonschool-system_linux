@@ -56,14 +56,14 @@ int compareString(char *string1, char *string2)
 		stringValue1 = string1[i];
 		stringValue2 = string2[i];
 
-        if (stringValue1 == '\0' && stringValue2 != '\0')
-        {
-            return (0);
-        }
-        if (stringValue1 != '\0' && stringValue2 == '\0')
-        {
-            return (1);
-        }
+		if (stringValue1 == '\0' && stringValue2 != '\0')
+		{
+			return (0);
+		}
+		if (stringValue1 != '\0' && stringValue2 == '\0')
+		{
+			return (1);
+		}
 		if(stringValue1 > 64 && stringValue1 < 91)
 		{
 			stringValue1 += 32;
@@ -82,19 +82,28 @@ int compareString(char *string1, char *string2)
 		}
 		i++;
 	}
-    return (-1);
+	return (-1);
 }
-
+/**
+* stringLength - finds the length of a given string
+* @string: the given string
+* Return: the string length
+*/
 size_t stringLength(const char *string)
 {
-    size_t length = 0;
-    while (string[length] != '\0')
-    {
-        length++;
-    }
-    return(length);
+	size_t length = 0;
+	while (string[length] != '\0')
+	{
+		length++;
+	}
+	return(length);
 }
-
+/**
+* copyString - copies a string
+* @string: string to copy
+* @dest: buffer
+* Return: 1 to swap, 0 if not -1 on error
+*/
 void copyString(char *string, char *dest)
 {
 	size_t i = 0;

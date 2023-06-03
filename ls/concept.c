@@ -2,7 +2,7 @@
 /**
 * main - main function in the program, dictates flow and function call
 * @argc: number of arguments passed to the program
-* @argv: array containing the arguments passed 
+* @argv: array containing the arguments passed
 * Return: 0
 */
 int main (int argc, char *argv[])
@@ -10,8 +10,7 @@ int main (int argc, char *argv[])
 	struct myFile *fileList;
 	char *target;
 	int x = 0;
-	size_t i = 0;
-	size_t list_size = 0;
+	size_t list_size = 0, i= 0;
 
 	if (argc == 1)
 	{
@@ -30,27 +29,16 @@ int main (int argc, char *argv[])
 		}
 		freeStructMembers(fileList, target);
 		free(fileList);
-/**
-* get a list of d_name, sort and print
-*/ 
-
 	}
 	else
 	{
-
 		for (x = 1; x < argc; x++)
-		{	
+		{
 			if (argv[x][0] != '-')
 			{
 				target = (argv[x]);
-				
 			}
-/**	
-*		// if argv[1][0] != '-' then its a directory name, modify above code
-*		// we'll have to check for multiple arguments and directories!!!
-*/
 		}
 	}
-	
-	return(0);
+	return (0);
 }
