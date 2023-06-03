@@ -9,7 +9,10 @@ int checkArg(char *target)
     struct stat file_stat;
 
     if (lstat(target, &file_stat) == -1)
+    {
+        fprintf(stderr, "./hls_01: cannot access %s: No such file or directory\n", target);
         return (-1);
+    }
     if (S_ISREG(file_stat.st_mode))
     {
         printf("%s\n\n", target);
@@ -18,5 +21,6 @@ int checkArg(char *target)
     if (S_ISDIR(file_stat.st_mode))
         return (1);
     
+
     return(-1);
 }
