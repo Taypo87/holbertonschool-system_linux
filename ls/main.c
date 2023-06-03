@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
             }
         }
     }
-    if (check == 1)
+    if (check == 0)
         printf("\n");
     for (x = 0; x < i; x++)
     {
