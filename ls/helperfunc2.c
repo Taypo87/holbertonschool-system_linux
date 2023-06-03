@@ -6,7 +6,6 @@
 
 int checkArg(char *target)
 {
-    char file_path[PATH_MAX + 1];
     int exists = 0;
     struct stat *file_stat;
 
