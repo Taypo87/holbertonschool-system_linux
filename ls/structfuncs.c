@@ -94,6 +94,10 @@ void printList(struct myFile *fileList, char *target)
 {
     size_t i = 0;
 
+    if (target != '.' || target != '..')
+    {
+        printf("%s:\n", target);
+    }
     while (i < listLength(target))
     {
         if (fileList[i].fileName[0] != '.')
