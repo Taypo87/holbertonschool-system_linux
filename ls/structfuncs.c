@@ -94,7 +94,7 @@ void printList(struct myFile *fileList, char *target)
 {
     size_t i = 0;
 
-    if (target != '.' || target != '..')
+    if (target != "." || target != "..")
     {
         printf("%s:\n", target);
     }
