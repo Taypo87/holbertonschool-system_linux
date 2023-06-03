@@ -3,7 +3,7 @@
 int main(int argc, char *argv[])
 {
     struct myFile *fileList;
-	char *targets[16], *option;
+	char *targets[16];
 	int x = 1, i =0;
 
     targets[0] = ".";
@@ -11,8 +11,6 @@ int main(int argc, char *argv[])
     {
         if (argv[x][0] != '-')
             targets[i] = argv[x];
-        else
-            option = argv[x];
     }
 
     for (i = 0; i < x; i++)
