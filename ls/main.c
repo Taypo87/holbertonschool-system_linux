@@ -42,9 +42,7 @@ int main(int argc, char *argv[])
 
             fileList = direntLoad(targets[x]);
 		    statLoad(fileList, targets[x]);
-            /**
 		    sortStruct(fileList, targets[x]);
-            */
             selectPrint(fileList, targets[x], option);
             freeStructMembers(fileList, targets[x]);
             free(fileList);
