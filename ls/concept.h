@@ -16,7 +16,7 @@
 * @dirent_info: the dirent struct from readdir
 * @stat_info: the stat struct fromn lstat
 * @userName: username of the file
-* @fileName: the filename
+* @fileName: the file name
 */
 struct myFile
 {
@@ -40,6 +40,9 @@ int checkArg(char *target, char **argv);
 void selectPrint(struct myFile *fileList, char *target, char option);
 void printLista(struct myFile *fileList, char *target);
 void printListA(struct myFile *fileList, char *target);
+void printListl(struct myFile *fileList, char *target);
+void convertOctal(mode_t perms, char *permissions);
+const char *formatPerms(int permission);
 
 
 

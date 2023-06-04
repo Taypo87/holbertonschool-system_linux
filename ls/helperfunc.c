@@ -115,3 +115,12 @@ void copyString(char *string, char *dest)
 	}
 	dest[i] = '\0';
 }
+
+void convertOctal(mode_t perms, char *permissions)
+{
+	sprintf(permissions, "%s%s%s",
+             formatPerms((perms >> 6) & 0x7),
+             formatPerms((perms >> 3) & 0x7),
+             formatPerms(perms & 0x7));
+    permissions[9] = '\0';
+}

@@ -42,6 +42,9 @@ void selectPrint(struct myFile *fileList, char *target, char option)
     
     if (option == 'A')
         printListA(fileList, target);
+    
+    if (option == 'l')
+        printListl(fileList, target);
 }
 
 void printLista(struct myFile *fileList, char *target)
@@ -65,3 +68,18 @@ void printListA(struct myFile *fileList, char *target)
         i++;
     }
 }
+
+void printListl(struct myFile *fileList, char *target)
+{
+    size_t i = 0;
+
+    while (i < listLength(target))
+    {
+        if (fileList[i].fileName[0] != '.')
+        { 
+            printf("%s\n", fileList[i].fileName);
+        }
+        i++;
+    }
+}
+

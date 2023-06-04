@@ -38,9 +38,10 @@ struct myFile *direntLoad(char *target)
 */
 void statLoad(struct myFile *fileList, char *target)
 {
-	char file_path[PATH_MAX + 1];
+	char file_path[PATH_MAX + 1], permissions[10];
 	size_t i = 0;
 	size_t list_size = 0;
+    mode_t perms;
 
 	list_size = listLength(target);
 	while (i < list_size)
@@ -48,6 +49,9 @@ void statLoad(struct myFile *fileList, char *target)
 		sprintf(file_path, "%s/%s", target, fileList[i].fileName);
 		fileList[i].stat_info = malloc(sizeof(struct stat));
 		lstat(file_path, fileList[i].stat_info);
+        perms = fileList[i].stat_info->st_mode & 0777;
+        convertOctal(perms, permissions);
+        printf("%s\n", permissions);
 		i++;
 	}
 }
