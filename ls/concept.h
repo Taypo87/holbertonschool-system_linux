@@ -6,6 +6,8 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <grp.h>
+#include <pwd.h>
 #include <unistd.h>
 #include <errno.h>
 #include <time.h>
@@ -23,7 +25,10 @@ struct myFile
 	struct dirent *dirent_info;
 	struct stat *stat_info;
 	char *userName;
+	char *groupName;
+	char *permissions;
 	char *fileName;
+	char *time;
 };
 
 struct myFile *loadStruct(char *target);

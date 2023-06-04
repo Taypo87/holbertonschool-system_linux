@@ -77,7 +77,13 @@ void printListl(struct myFile *fileList, char *target)
     {
         if (fileList[i].fileName[0] != '.')
         { 
-            printf("%s\n", fileList[i].fileName);
+            printf("%s ", fileList[i].permissions);
+            printf("%ld ", fileList[i].stat_info->st_nlink);
+            printf("%s %s ", fileList[i].userName, fileList[i].groupName);
+            printf("%ld ", fileList[i].stat_info->st_size);
+            printf("%s ", fileList[i].time);
+            printf("%s ", fileList[i].fileName);
+            printf("\n");
         }
         i++;
     }

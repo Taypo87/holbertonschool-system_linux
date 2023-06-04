@@ -118,9 +118,16 @@ void copyString(char *string, char *dest)
 
 void convertOctal(mode_t perms, char *permissions)
 {
-	sprintf(permissions, "%s%s%s",
+	char fileType;
+	fileType = '-';
+	if (S_ISDIR(perms))
+	{
+		fileType = 'd';
+	}
+	sprintf(permissions, "%c%s%s%s",
+			 fileType,
              formatPerms((perms >> 6) & 0x7),
              formatPerms((perms >> 3) & 0x7),
              formatPerms(perms & 0x7));
-    permissions[9] = '\0';
+    permissions[10] = '\0';
 }

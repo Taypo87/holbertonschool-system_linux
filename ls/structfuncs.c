@@ -38,10 +38,13 @@ struct myFile *direntLoad(char *target)
 */
 void statLoad(struct myFile *fileList, char *target)
 {
-	char file_path[PATH_MAX + 1], permissions[10];
+	char file_path[PATH_MAX + 1], permissions[11];
+	char modifiedTime[20];
 	size_t i = 0;
 	size_t list_size = 0;
-    mode_t perms;
+	struct passwd *owner;
+	struct group *group;
+	struct tm *modified;
 
 	list_size = listLength(target);
 	while (i < list_size)
@@ -49,9 +52,15 @@ void statLoad(struct myFile *fileList, char *target)
 		sprintf(file_path, "%s/%s", target, fileList[i].fileName);
 		fileList[i].stat_info = malloc(sizeof(struct stat));
 		lstat(file_path, fileList[i].stat_info);
-        perms = fileList[i].stat_info->st_mode & 0777;
-        convertOctal(perms, permissions);
-        printf("%s\n", permissions);
+		owner = getpwuid(fileList[i].stat_info->st_uid);
+		fileList[i].userName = owner->pw_name;
+		group = getgrgid(fileList[i].stat_info->st_gid);
+		fileList[i].groupName = group->gr_name;
+        convertOctal(fileList[i].stat_info->st_mode, permissions);
+        fileList[i].permissions = permissions;
+		modified = localtime(&fileList[i].stat_info->st_mtime);
+		strftime(modifiedTime, sizeof(modifiedTime), "%b %e %H:%M", modified);
+		fileList[i].time = modifiedTime;
 		i++;
 	}
 }

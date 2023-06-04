@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
     struct myFile *fileList;
 	char *targets[16] = {NULL}, option = '\0';
 	int x = 0, i = 0, flag = 0, check = 0;
-    if (argc == 1)
+    if (argc == 1 || (argc == 2 && argv[1][0] == '-'))
     {
         targets[0] = ".";
         i = 1;
@@ -26,8 +26,13 @@ int main(int argc, char *argv[])
         if (argv[x][0] == '-')
                 option = argv[x][1];
     }
-    if (check == 0 && argc > 1)
+    if (check == 0 && argc > 1 && i > 1)
         printf("\n");
+    if (argc == 2 && argv[1][0] == '-')
+    {
+        flag = 2;
+        check = 2;
+    }
     for (x = 0; x < i; x++)
     {
         if (targets[x])
