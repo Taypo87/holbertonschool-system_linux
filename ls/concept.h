@@ -48,7 +48,7 @@ void printListA(struct myFile *fileList, char *target);
 void printListl(struct myFile *fileList, char *target);
 void convertOctal(mode_t perms, char *permissions);
 const char *formatPerms(int permission);
-
+char *itoa(int value);
 
 
 #endif

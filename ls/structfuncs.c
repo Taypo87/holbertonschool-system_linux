@@ -53,9 +53,21 @@ void statLoad(struct myFile *fileList, char *target)
 		fileList[i].stat_info = malloc(sizeof(struct stat));
 		lstat(file_path, fileList[i].stat_info);
 		owner = getpwuid(fileList[i].stat_info->st_uid);
-		fileList[i].userName = owner->pw_name;
+		if (owner != NULL)
+			fileList[i].userName = owner->pw_name;
+		else
+		{
+			fileList[i].userName = malloc(12 * sizeof(char));
+			copyString(itoa(fileList[i].stat_info->st_uid), fileList[i].userName);
+		}
 		group = getgrgid(fileList[i].stat_info->st_gid);
-		fileList[i].groupName = group->gr_name;
+		if (group != NULL)
+			fileList[i].groupName = group->gr_name;
+		else
+		{
+			fileList[i].groupName = malloc(12 * sizeof(char));
+            copyString(itoa(fileList[i].stat_info->st_gid), fileList[i].groupName);
+		}
         convertOctal(fileList[i].stat_info->st_mode, permissions);
 		fileList[i].permissions = malloc(11 * sizeof(char));
 		copyString(permissions, fileList[i].permissions);

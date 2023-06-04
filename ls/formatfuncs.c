@@ -24,3 +24,31 @@ const char *formatPerms(int permission)
             return "???";
     }
 }
+char *itoa(int value)
+{
+    static char buffer[12];
+    int i = 10;
+
+    buffer[11] = '\0'; 
+
+    if (value < 0)
+    {
+        buffer[0] = '-';
+        value = -value;
+    }
+    else if (value == 0)
+    {
+        buffer[0] = '0';
+        buffer[1] = '\0';
+        return buffer;
+    }
+
+    while (value > 0)
+    {
+        buffer[i] = '0' + (value % 10);
+        value /= 10;
+        i--;
+    }
+
+    return &buffer[i + 1];
+}
