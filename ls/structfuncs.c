@@ -59,7 +59,7 @@ void statLoad(struct myFile *fileList, char *target)
         convertOctal(fileList[i].stat_info->st_mode, permissions);
         fileList[i].permissions = permissions;
 		modified = localtime(&fileList[i].stat_info->st_mtime);
-		strftime(modifiedTime, sizeof(modifiedTime), "%b %e %H:%M", modified);
+		strftime(modifiedTime, sizeof(modifiedTime), "%b %d %H:%M", modified);
 		fileList[i].time = modifiedTime;
 		i++;
 	}
