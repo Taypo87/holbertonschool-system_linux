@@ -57,10 +57,12 @@ void statLoad(struct myFile *fileList, char *target)
 		group = getgrgid(fileList[i].stat_info->st_gid);
 		fileList[i].groupName = group->gr_name;
         convertOctal(fileList[i].stat_info->st_mode, permissions);
-        fileList[i].permissions = permissions;
+		fileList[i].permissions = malloc(11 * sizeof(char));
+		copyString(permissions, fileList[i].permissions);
 		modified = localtime(&fileList[i].stat_info->st_mtime);
 		strftime(modifiedTime, sizeof(modifiedTime), "%b %d %H:%M", modified);
-		fileList[i].time = modifiedTime;
+		fileList[i].time = malloc((stringLength(modifiedTime) + 1) * sizeof(char));
+		copyString(modifiedTime, fileList[i].time);
 		i++;
 	}
 }
@@ -99,6 +101,8 @@ void freeStructMembers(struct myFile *fileList, char *target)
 	{
 		free(fileList[i].fileName);
 		free(fileList[i].stat_info);
+		free(fileList[i].time);
+		free(fileList[i].permissions);
 		i++;
 	}
 }
