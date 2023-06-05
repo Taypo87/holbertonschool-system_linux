@@ -85,7 +85,7 @@ void statLoad(struct myFile *fileList, char *target)
         sprintf(modified, "%s %2s %s", month, day, time);
 
 
-		fileList[i].time = malloc((stringLength(modified) + 1) * sizeof(char));
+		fileList[i].time = malloc((stringLength(modified)) * sizeof(char));
         copyString(modified, fileList[i].time);
 		i++;
 	}

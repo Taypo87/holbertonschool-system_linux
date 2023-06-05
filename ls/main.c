@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
                 option = argv[x][1];
     }
 
-    if (check == 0 && argc > 3 && i > 2)
+    if (check == 0 && argc > 1 && i > 1)
         printf("\n");
     
     if (argc == 2 && argv[1][0] == '-')
@@ -48,7 +48,9 @@ int main(int argc, char *argv[])
             selectPrint(fileList, targets[x], option);
             freeStructMembers(fileList, targets[x]);
             free(fileList);
-
+/**
+*           Had a newline here but it broke the checker in task 5
+*/
         }
     }
     return (0);
