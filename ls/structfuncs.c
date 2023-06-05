@@ -80,11 +80,11 @@ void statLoad(struct myFile *fileList, char *target)
         extractAndCopyString(ctimeString, day, 8, 9);
         
         extractAndCopyString(ctimeString, time, 11, 15);
-        copyString(modified, remodified);
+        
 
-        sprintf(remodified, "%s %2s %s", month, day, time);
+        sprintf(modified, "%s %2s %s", month, day, time);
 
-
+		copyString(modified, remodified);
 		fileList[i].time = malloc((stringLength(modified) + 1) * sizeof(char));
         copyString(modified, fileList[i].time);
 		i++;
