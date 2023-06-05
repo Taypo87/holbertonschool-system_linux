@@ -68,8 +68,9 @@ void removeNewline(char *timeString)
 
 void extractAndCopyString(char *source, char *destination, int startIndex, int endIndex)
 {
-    int j = 0;
-    for (int i = startIndex; i <= endIndex; i++)
+    int j = 0, i = 0;
+    
+    for (i = startIndex; i <= endIndex; i++)
     {
         destination[j] = source[i];
         j++;
