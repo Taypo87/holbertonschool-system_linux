@@ -26,8 +26,10 @@ int main(int argc, char *argv[])
         if (argv[x][0] == '-')
                 option = argv[x][1];
     }
+    /**
     if (check == 0 && argc > 3 && i > 2)
         printf("\n");
+    */
     if (argc == 2 && argv[1][0] == '-')
     {
         flag = 2;
