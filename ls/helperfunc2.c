@@ -82,7 +82,7 @@ void printListl(struct myFile *fileList, char *target)
             printf("%s %s ", fileList[i].userName, fileList[i].groupName);
             printf("%ld ", fileList[i].stat_info->st_size);
             printf("%s ", fileList[i].time);
-            printf("%s ", fileList[i].fileName);
+            printf("%s", fileList[i].fileName);
             printf("\n");
         }
         i++;
