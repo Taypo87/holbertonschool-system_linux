@@ -38,7 +38,7 @@ struct myFile *direntLoad(char *target)
 */
 void statLoad(struct myFile *fileList, char *target)
 {
-	char file_path[PATH_MAX + 1], permissions[11], modified[20], *ctimeString;
+	char file_path[PATH_MAX + 1], permissions[11], modified[20], *ctimeString, remodified[19];
 	char month[4], day[3], time[6];
 	size_t i = 0;
 	size_t list_size = 0;
@@ -80,9 +80,9 @@ void statLoad(struct myFile *fileList, char *target)
         extractAndCopyString(ctimeString, day, 8, 9);
         
         extractAndCopyString(ctimeString, time, 11, 15);
-        
+        copyString(modified, remodified);
 
-        sprintf(modified, "%s %2s %s", month, day, time);
+        sprintf(remodified, "%s %2s %s", month, day, time);
 
 
 		fileList[i].time = malloc((stringLength(modified) + 1) * sizeof(char));
