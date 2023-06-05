@@ -128,6 +128,8 @@ void freeStructMembers(struct myFile *fileList, char *target)
 		free(fileList[i].stat_info);
 		free(fileList[i].time);
 		free(fileList[i].permissions);
+		free(fileList[i].userName);
+		free(fileList[i].groupName);
 		i++;
 	}
 }
