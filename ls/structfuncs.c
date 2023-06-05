@@ -87,7 +87,6 @@ void statLoad(struct myFile *fileList, char *target)
 
 		fileList[i].time = malloc((stringLength(modified) + 1) * sizeof(char));
         copyString(modified, fileList[i].time);
-		removeNewline(fileList[i].time);
 		i++;
 	}
 }
