@@ -64,6 +64,12 @@ void extractAndCopyString(char *source, char *destination, int startIndex, int e
             destination[j] = source[i];
             j++;
         }
-    destination[j] = '\0';
     }
+    destination[j] = '\0';
+
+     while (j > 0 && destination[j - 1] == '\0')
+    {
+        j--;
+    }
+    destination[j] = '\0';
 }
