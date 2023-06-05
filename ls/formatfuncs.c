@@ -57,7 +57,7 @@ void extractAndCopyString(char *source, char *destination, int startIndex, int e
 {
     int j = 0, i = 0;
     
-    for (i = startIndex; i <= endIndex; i++)
+    for (i = startIndex; i <= endIndex && source[i] != '\0'; i++)
     {
         if (source[i] != '\n' && source[i] != ' ')
         {
