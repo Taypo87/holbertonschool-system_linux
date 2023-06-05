@@ -52,3 +52,15 @@ char *itoa(int value)
 
     return &buffer[i + 1];
 }
+void removeNewline(char *timeString)
+{
+    int i = 0;
+    while (timeString[i] != '\0')
+    {
+        if (timeString[i] == '\n')
+        {
+            timeString[i] = '\0';
+        }
+        i++;
+    }
+}

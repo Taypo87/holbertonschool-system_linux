@@ -49,6 +49,7 @@ void printListl(struct myFile *fileList, char *target);
 void convertOctal(mode_t perms, char *permissions);
 const char *formatPerms(int permission);
 char *itoa(int value);
+void removeNewline(char *timeString);
 
 
 #endif
