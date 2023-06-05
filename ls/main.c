@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
                 option = argv[x][1];
     }
     if (argc > 3)
-        printf('\n');
+        printf("\n");
     if (check == 0 && argc > 2 && i > 1 )
         printf("\n");
     
