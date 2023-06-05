@@ -66,12 +66,13 @@ void removeNewline(char *timeString)
     }
 }
 
-void extractAndCopyString(const char *source, char *destination, size_t start, size_t length)
+void extractAndCopyString(char *source, char *destination, int startIndex, int endIndex)
 {
-    size_t i;
-    for (i = 0; i < length && source[start + i] != '\0'; i++)
+    int j = 0;
+    for (int i = startIndex; i <= endIndex; i++)
     {
-        destination[i] = source[start + i];
+        destination[j] = source[i];
+        j++;
     }
-    destination[i] = '\0';
+    destination[j] = '\0';
 }

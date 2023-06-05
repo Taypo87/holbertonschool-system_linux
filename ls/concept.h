@@ -50,7 +50,7 @@ void convertOctal(mode_t perms, char *permissions);
 const char *formatPerms(int permission);
 char *itoa(int value);
 void removeNewline(char *timeString);
-void extractAndCopyString(const char *source, char *destination, size_t start, size_t length);
+void extractAndCopyString(char *source, char *destination, int startIndex, int endIndex);
 
 
 #endif
