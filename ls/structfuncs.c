@@ -38,11 +38,12 @@ struct myFile *direntLoad(char *target)
 */
 void statLoad(struct myFile *fileList, char *target)
 {
-	char file_path[PATH_MAX + 1], permissions[11];
+	char file_path[PATH_MAX + 1], permissions[11], modified[13], *ctimeString;
 	size_t i = 0;
 	size_t list_size = 0;
 	struct passwd *owner;
 	struct group *group;
+	time_t modifiedTime;
 
 	list_size = listLength(target);
 	while (i < list_size)
@@ -69,8 +70,13 @@ void statLoad(struct myFile *fileList, char *target)
         convertOctal(fileList[i].stat_info->st_mode, permissions);
 		fileList[i].permissions = malloc(11 * sizeof(char));
 		copyString(permissions, fileList[i].permissions);
-		fileList[i].time = malloc((30 * sizeof(char)));
-		copyString(ctime(&fileList[i].stat_info->st_mtime), fileList[i].time);
+
+		modifiedTime = fileList[i].stat_info->st_mtime;
+		ctimeString = ctime(&modifiedTime);
+		extractAndCopyString(ctimeString, modified, 4, 7);
+        extractAndCopyString(ctimeString, modified + 7, 19, 5);
+		fileList[i].time = malloc((stringLength(modified) + 1) * sizeof(char));
+        copyString(modified, fileList[i].time);
 		removeNewline(fileList[i].time);
 		i++;
 	}

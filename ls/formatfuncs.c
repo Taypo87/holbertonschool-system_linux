@@ -52,6 +52,7 @@ char *itoa(int value)
 
     return &buffer[i + 1];
 }
+
 void removeNewline(char *timeString)
 {
     int i = 0;
@@ -63,4 +64,14 @@ void removeNewline(char *timeString)
         }
         i++;
     }
+}
+
+void extractAndCopyString(const char *source, char *destination, size_t start, size_t length)
+{
+    size_t i;
+    for (i = 0; i < length && source[start + i] != '\0'; i++)
+    {
+        destination[i] = source[start + i];
+    }
+    destination[i] = '\0';
 }
