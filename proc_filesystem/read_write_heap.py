@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Script that accesses proc filsystem and changes a given string"""
 
 import sys
 import re
@@ -6,7 +7,8 @@ import os
 import ctypes
 
 def read_write_heap(pid, search_string, replace_string):
-    # Open the process's memory map
+    """ accessess proc filesystem and changes a given string"""
+    
     mem_file = open('/proc/{}/maps'.format(pid), 'r')
     
     for line in mem_file:
