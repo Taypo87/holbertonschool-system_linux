@@ -40,7 +40,6 @@ def read_write_heap(pid, search_string, replace_string):
                 # Replace the string with the replace string
                 mem_fd.write(replace_string.encode())
 
-
             mem_fd.close()
 
     mem_file.close()
