@@ -1,32 +1,42 @@
-BITS 64
 
-section .text
 global asm_strcmp
 
 asm_strcmp:
-    mov rsi, rdi
-    mov rdx, r8
+xor rax, rax
+mov rbx, rdi
+mov rcx, rsi
 
-    cmp rdi, rsi
-    je .end
+loop_start:
+mov al, [rbx]
+mov dl, [rcx]
+cmp al, 0x0
+je first_null
+cmp dl, 0x0
+je sec_null
+cmp al, dl
+jl less_than
+jg greater_than
+inc rbx
+inc rcx
+jmp loop_start
 
-.loop:
-    mov al, [rdi]
-    cmp al, [rsi]
-    jne .unequal
+first_null:
+cmp al, dl
+jne less_than
+je end
 
-    cmp al, 0
-    je .end
+sec_null:
+cmp al, dl
+jne greater_than
+je end
 
-    inc rdi
-    inc rsi
-    dec rdx
-    jnz .loop
+less_than:
+mov rax, -1
+jmp end
 
-.end:
-    mov eax, 0
-    ret
+greater_than:
+mov rax, 1
+jmp end
 
-.unequal:
-    mov eax, 1
-    ret
+end:
+ret
