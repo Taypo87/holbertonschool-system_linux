@@ -1,8 +1,8 @@
 BITS 64
 
-global _strlen
+global asm_strlen
 
-_strlen:
+asm_strlen:
 
 xor rax, rax
 mov rcx, rdi
