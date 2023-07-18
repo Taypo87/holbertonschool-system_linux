@@ -1,4 +1,4 @@
-64 BIT
+BITS 64
 
 global _strlen
 
