@@ -1,9 +1,9 @@
 BITS 64
 
 section .text
-global strcmp
+global asm_strcmp
 
-strcmp:
+asm_strcmp:
     mov rsi, rdi
     mov rdx, r8
 
