@@ -1,6 +1,6 @@
 #include "signals.h"
 
-/*
+/**
 * handle_signal - catches the signal and calls handle_sigint
 * Return: -1 on error 0 on success
 */
@@ -15,7 +15,7 @@ int handle_signal(void)
 		return (0);
 	}
 }
-/*
+/**
 * handle_sigint - handles sigint
 * @sig: signal
 */
