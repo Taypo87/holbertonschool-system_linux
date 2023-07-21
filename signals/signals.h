@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
-#include <singal.h>
+#include <signal.h>
 
 int handle_signal(void);
 void (*current_handler_signal(void))(int);
