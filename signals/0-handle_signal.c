@@ -14,5 +14,5 @@ int handle_signal(void)
 
 void handle_sigint(int sig)
 {
-    printf("Gotcha! [%i]", sig);
+    printf("Gotcha! [%i]\n", sig);
 }
