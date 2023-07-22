@@ -2,8 +2,8 @@
 
 void (*current_handler_signal(void))(int)
 {
-    if (signal(SIGINT, SIG_DFL) == SIG_ERR)
-        return NULL;
+    void (*func)(int) = signal(SIGINT, SIG_DFL);
     
-    return ((signal(SIGINT, SIG_DFL)));
+    signal(SIGINT, func);
+    return (func);
 }
