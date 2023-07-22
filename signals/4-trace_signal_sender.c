@@ -20,11 +20,12 @@ int trace_signal_sender(void)
 * @siginfo: siginfo t struct
 * @context: context pointer
 */
-void trace_handler(int sig, siginfo_t *siginfo)
+void trace_handler(int sig, siginfo_t *siginfo, void *context)
 {
 	pid_t sender_pid = siginfo->si_pid;
 
-	if (sig == SIGQUIT)
+	context = NULL;
+	if (sig == SIGQUIT && context == NULL)
 	{
 		printf("SIGQUIT sent by %d\n", sender_pid);
 	}
