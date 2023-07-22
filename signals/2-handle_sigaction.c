@@ -1,16 +1,27 @@
 #include "signals.h"
-
+/**
+* handle_sigaction - catches the signal and calls sigaction_handler
+* Return: -1 on error 0 on success
+*/
 int handle_sigaction(void)
 {
-    struct sigaction sa;
+	struct sigaction sa;
 
-    sa.sa_handler = sigaction_handler;
+	sa.sa_handler = sigaction_handler;
 
-    sigaction(SIGINT, &sa, NULL);
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		return (-1);
+	else
+	{
+		return (0);
+	}
 }
-
+/**
+* sigaction_handler - handles sigint
+* @sig: signal
+*/
 void sigaction_handler(int sig)
 {
-    printf("Gotcha! [%i]\n", sig);
-    fflush(stdout);
+	printf("Gotcha! [%i]\n", sig);
+	fflush(stdout);
 }
