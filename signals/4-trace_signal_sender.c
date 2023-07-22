@@ -20,7 +20,7 @@ int trace_signal_sender(void)
 * @siginfo: siginfo t struct
 * @context: context pointer
 */
-void trace_handler(int sig, siginfo_t *siginfo, void *context)
+void trace_handler(int sig, siginfo_t *siginfo)
 {
 	pid_t sender_pid = siginfo->si_pid;
 
