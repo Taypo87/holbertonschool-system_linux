@@ -11,7 +11,7 @@ int trace_signal_sender(void)
 
 	if (sigaction(SIGQUIT, &sa, NULL) != 0)
 		return (-1);
-	
+
 	return (0);
 }
 /**
