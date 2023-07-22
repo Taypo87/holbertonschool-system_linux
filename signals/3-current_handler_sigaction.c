@@ -10,5 +10,7 @@ void (*current_handler_sigaction(void))(int)
 {
 	struct sigaction sa;
 
-	return(void *(sigaction(SIGINT, NULL, &sa)));
+	(sigaction(SIGINT, NULL, &sa));
+
+	return (sa.sa_handler);
 }
