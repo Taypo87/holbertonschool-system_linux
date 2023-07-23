@@ -1,9 +1,9 @@
 #include "signals.h"
 /**
-* main - checks if signal number is in range and prints the corresponding signal
+* main - checks if signal number is in range and prints corresponding signal
 * @argc: the argument count
 * @argv: the argument array
-* Return - EXIT_FAILURE EXIT _SUCCESS
+* Return: EXIT_FAILURE EXIT _SUCCESS
 */
 int main(int argc, char **argv)
 {
