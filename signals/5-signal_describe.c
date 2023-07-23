@@ -10,9 +10,9 @@ int main(int argc, char **argv)
             exit(EXIT_FAILURE);
         }
     number = atoi(argv[1]);
-    if (number >= 0 && number < NSIG)
+    if (number > 0 && number < NSIG)
         printf("%i: %s\n", number, sys_siglist[number]);
     else
-        printf("%i: Unknown signal %i", number, number);
+        printf("%i: Unknown signal %i\n", number, number);
     return (EXIT_SUCCESS);
 }
