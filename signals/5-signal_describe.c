@@ -11,8 +11,8 @@ int main(int argc, char **argv)
         }
     number = atoi(argv[1]);
     if (number >= 0 && number < NSIG)
-        printf("%i: %s\n", argv[1], sys_siglist[number]);
+        printf("%i: %s\n", number, sys_siglist[number]);
     else
-        printf("%i: Unknown signal %i", argv[1], argv[1]);
+        printf("%i: Unknown signal %i", number, number);
     return (EXIT_SUCCESS);
 }
