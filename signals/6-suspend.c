@@ -1,12 +1,17 @@
 #include "signals.h"
-
-int main()
+/**
+* main - sets sig handler and pauses for signal
+* @void: voided
+* Return: 0 on success
+*/
+int main(void)
 {
 	struct sigaction sa;
 
 	sa.sa_handler = handle_sigint_once;
 	sigaction(SIGINT, &sa, NULL);
 	pause();
+	printf("Signal received\n");
 	return (0);
 }
 /**
