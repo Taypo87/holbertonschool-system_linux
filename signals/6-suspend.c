@@ -13,7 +13,7 @@ int main()
 * handle_sigint_once - signal handler for task 6
 * @sig: the signal
 */
-void handle_sigint_once(int sig);
+void handle_sigint_once(int sig)
 {
 	printf("Caught %i\n", sig);
 }
