@@ -7,12 +7,17 @@
 */
 int main(int argc, char **argv)
 {
+	int pid;
+	pid_t proccess_id;
+
 	if (argc != 2)
 	{
 		printf("Usage: %s <pid>", argv[0]);
 		return (EXIT_FAILURE);
 	}
-	if (kill(argv[1], SIGINT) == -1)
+	pid = atoi(argv[1]);
+	proccess_id = pid;
+	if (kill(proccess_id, SIGINT) == -1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
