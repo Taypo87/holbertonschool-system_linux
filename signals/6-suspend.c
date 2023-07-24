@@ -4,7 +4,7 @@ int main()
 {
 	struct sigaction sa;
 
-	sa.sa_handler = handle_sigint;
+	sa.sa_handler = handle_sigint_once;
 	sigaction(SIGINT, &sa, NULL);
 	pause();
 	return (0);
