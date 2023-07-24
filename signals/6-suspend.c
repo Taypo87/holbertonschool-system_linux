@@ -1,4 +1,4 @@
-#include "singals.h"
+#include "signals.h"
 
 int main()
 {
