@@ -2,7 +2,6 @@
 
 void nm_wrapper(int fd)
 {
-    // here we just want to check if its 32 or 64 bit, map the appropriate bitheader
     Elf64_Ehdr *pElfHeader;
     Elf64_Shdr *ppSectionHeader, *pSymbolTableSection, *pStrtabSection;
     Elf64_Sym *pSymbolTable;
@@ -11,7 +10,6 @@ void nm_wrapper(int fd)
     int i, SymbolCount, symbolType;
     char *strtab;
     struct stat st;
-    size_t x;
 
     fstat(fd, &st);
     mapped_file = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
@@ -26,7 +24,7 @@ void nm_wrapper(int fd)
         }
     }
     pStrtabSection = ppSectionHeader + pSymbolTableSection->sh_link;
-    strtab = mapped_file + pStrtabSection->sh_offset;
+    strtab = (char *)mapped_file + pStrtabSection->sh_offset;
     pSymbolTable = (Elf64_Sym *)((char *)mapped_file + pSymbolTableSection->sh_offset);
     SymbolCount = pSymbolTableSection->sh_size / sizeof(Elf64_Sym);
     for (i = 0; i < SymbolCount; i++)
