@@ -6,20 +6,17 @@ void nm_wrapper(int fd)
     Elf64_Ehdr *pElfHeader;
     Elf64_Shdr *ppSectionHeader, *pSymbolTableSection, *pStrtabSection;
     Elf64_Sym *pSymbolTable;
+    Elf64_Addr symbolAddress;
     void *mapped_file;
-    int i, SymbolCount;
+    int i, SymbolCount, symbolType;
     char *strtab;
     struct stat st;
+    size_t x;
 
-    printf("break 0");
     fstat(fd, &st);
-    printf("break 1");
     mapped_file = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
-    printf("break 2");
     pElfHeader = (Elf64_Ehdr *)mapped_file;
-    printf("break 3");
-    ppSectionHeader = (Elf64_Shdr *)mapped_file + pElfHeader->e_shoff;
-    printf("break 4");
+    ppSectionHeader = (Elf64_Shdr *)((char *)mapped_file + pElfHeader->e_shoff);
     for (i = 0; i < pElfHeader->e_shnum; i++)
     {
         if (ppSectionHeader[i].sh_type == SHT_SYMTAB)
@@ -28,18 +25,63 @@ void nm_wrapper(int fd)
             break;
         }
     }
-    printf("break 5");
     pStrtabSection = ppSectionHeader + pSymbolTableSection->sh_link;
-    printf("break 6");
     strtab = mapped_file + pStrtabSection->sh_offset;
-    printf("break 7");
     pSymbolTable = (Elf64_Sym *)((char *)mapped_file + pSymbolTableSection->sh_offset);
-    printf("break 8");
     SymbolCount = pSymbolTableSection->sh_size / sizeof(Elf64_Sym);
-    printf("break 9");
     for (i = 0; i < SymbolCount; i++)
     {
-        printf("Symbol name is %s\n", strtab + pSymbolTable[i].st_name);
+        symbolAddress = pSymbolTable[i].st_value;
+        symbolType = ELF64_ST_TYPE(pSymbolTable[i].st_info);
+        printf("0x%016lx ", symbolAddress);
+        handleSymbolType(symbolType);
+        printf("%s\n", strtab + pSymbolTable[i].st_name);
     }
     munmap(mapped_file, pElfHeader->e_shoff + pElfHeader->e_shnum * sizeof(Elf64_Shdr));
+}
+
+void handleSymbolType(int symbolType)
+{
+    switch (symbolType)
+    {
+        case STT_NOTYPE:
+            printf("U ");
+            break;
+        case STT_OBJECT:
+            printf("O ");
+            break;
+        case STT_FUNC:
+            printf("T ");
+            break;
+        case STT_SECTION:
+            printf("S ");
+            break;
+        case STT_FILE:
+            printf("F ");
+            break;
+        case STT_COMMON:
+            printf("C ");
+            break;
+        case STT_TLS:
+            printf("T ");
+            break;
+        case STT_REL:
+            printf("S ");
+            break;
+        case STT_GNU_IFUNC:
+            printf("i ");
+            break;
+        case STT_HIOS:
+            printf("o ");
+            break;
+        case STT_LOPROC:
+            printf("p ");
+            break;
+        case STT_HIPROC:
+            printf("p ");
+            break;
+        default:
+            printf("Symbol type: Unknown\n");
+            break;
+    }
 }
