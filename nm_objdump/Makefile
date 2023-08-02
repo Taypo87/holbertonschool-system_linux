@@ -1,20 +1,13 @@
-# Compiler and flags
-CC := gcc
-CFLAGS := -Wall -Werror -Wextra -pedantic -g
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra -pedantic -std=gnu89 -g
 
-# Source file and executable name
-SRC := 0-parser.c 0-func1.c 0-main.c
-EXE := hnm
+SRC = $(wildcard *.c)
+OBJS = $(patsubst %.c, %.o, $(SRC))
+0 = $(patsubst %.c, %.o, hnm.c elf.c)
 
-# Default target (executable)
-all: $(EXE)
+.PHONY: hnm clean
 
-# Compile the source file into an executable
-$(EXE): $(SRC)
-	$(CC) $(CFLAGS) -o $(EXE) $(SRC)
-
-# Clean up object files and executable
+hnm: $(0)
+	$(CC) $(CFLAGS) $(0) -o hnm
 clean:
-	rm -f $(EXE)
-
-.PHONY: all clean
+	rm -f $(OBJS) hnm
