@@ -2,19 +2,21 @@
 
 void print_python_list(PyObject *p)
 {
-    Py_ssize_t len, i = 0, refcount;
+    Py_ssize_t len, i = 0;
     PyTypeObject *type;
     PyObject *element;
+    PyListObject *list;
 
     // looks like we need size of python list,  allocated, and the elements of the list and their type
     if (PyList_Check(p) == 1)
     {
         len = PyList_Size(p);
-        refcount = Py_REFCNT(p);
+        list = (PyListObject *)p;
+        
 
         printf("[*] Python list info\n");
         printf("[*] Size of the Python list = %d\n", (int)len);
-        printf("[*] Allocated = %d\n", (int)refcount);
+        printf("[*] Allocated = %d\n", (int)list->allocated);
         for (i = 0; i < len; i++)
         {
              element = PyList_GetItem(p, i);
