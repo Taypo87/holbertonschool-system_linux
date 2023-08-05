@@ -12,7 +12,6 @@ void print_python_list(PyObject *p)
 	PyObject *element;
 	PyListObject *list;
 
-	// looks like we need size of python list,  allocated, and the elements of the list and their type
 	if (PyList_Check(p) == 1)
 	{
 		len = PyList_Size(p);
