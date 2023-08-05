@@ -1,5 +1,4 @@
 #include "cpython.h"
-void
 /**
 * print_python_list - prints info about a given python list
 * @p: the pointer to the python list object
