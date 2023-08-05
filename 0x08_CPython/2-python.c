@@ -43,9 +43,10 @@ void print_python_bytes(PyObject *p)
 	if (PyBytes_Check(p) == 1)
 	{
 		size = PyBytes_Size(p);
-		printf("size: %d\n", (int)size);
+		printf("[.] bytes object info")
+		printf("\tsize: %d\n", (int)size);
 		byteString = PyBytes_AsString(p);
-		printf("trying string: %s\n", byteString);
+		printf("\ttrying string: %s\n", byteString);
 		//check size, print size unless its larger than 10, then just print 10
 		for(i = 0; i <= 10 && i <= size; i++)
 		{
@@ -53,12 +54,12 @@ void print_python_bytes(PyObject *p)
 		}
 		if (byteprint >= 10)
 		{
-			printf("first 10 bytes: ");
+			printf("\tfirst 10 bytes: ");
 			byteprint = 9;
 		}
 		
 		else
-			printf("first %zd bytes: ", (byteprint + 1));
+			printf("\tfirst %zd bytes: ", (byteprint + 1));
 		for(i = 0; i <= (byteprint) && i <= 10; i++)
 		{
 			printf("%02x ", (unsigned char)byteString[i]);
