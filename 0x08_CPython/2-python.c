@@ -26,7 +26,7 @@ void print_python_list(PyObject *p)
 			 element = PyList_GetItem(p, i);
 			 type = Py_TYPE(element);
 			 printf("Element %d: %s\n", ((int)i), type->tp_name);
-			 if (type->tp_name == bytecheck)
+			 if (strncmp(type->tp_name, bytecheck, 5) == 0)
 			 {
 				print_python_bytes(element);
 			 }
