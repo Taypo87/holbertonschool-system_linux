@@ -43,7 +43,7 @@ void print_python_bytes(PyObject *p)
 	if (PyBytes_Check(p) == 1)
 	{
 		size = PyBytes_Size(p);
-		printf("[.] bytes object info")
+		printf("[.] bytes object info");
 		printf("\tsize: %d\n", (int)size);
 		byteString = PyBytes_AsString(p);
 		printf("\ttrying string: %s\n", byteString);
