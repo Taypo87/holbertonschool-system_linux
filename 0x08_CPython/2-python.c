@@ -62,7 +62,7 @@ void print_python_bytes(PyObject *p)
 			printf("  first %zd bytes: ", (byteprint + 1));
 		for(i = 0; i <= (byteprint) && i <= 10; i++)
 		{
-			if (i < 10 || (i == (byteprint - 1)))
+			if (i < 10 && (i != (byteprint)))
 				printf("%02x ", (unsigned char)byteString[i]);
 			else
 				printf("%02x", (unsigned char)byteString[i]);
