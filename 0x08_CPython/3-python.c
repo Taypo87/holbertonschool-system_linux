@@ -14,7 +14,7 @@ void print_python_list(PyObject *p)
 
 	if (PyList_Check(p) == 1)
 	{
-		len = (((PyVarObject*)(ob))->ob_size);
+		len = (((PyVarObject*)(p))->ob_size);
 		list = (PyListObject *)p;
 		
 
