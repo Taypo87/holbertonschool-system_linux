@@ -24,7 +24,7 @@ void print_python_list(PyObject *p)
 		for (i = 0; i < len; i++)
 		{
 			 element = PyList_GET_ITEM(p, i);
-			 type = Py_TYPE(element);
+			 type = (((PyObject*)(element))->ob_type);
 			 printf("Element %d: %s\n", ((int)i), type->tp_name);
 			 if (strncmp(type->tp_name, bytecheck, 5) == 0)
 			 {
