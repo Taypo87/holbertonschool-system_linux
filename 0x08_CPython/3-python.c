@@ -49,7 +49,7 @@ void print_python_bytes(PyObject *p)
 		size = PyBytes_Size(p);
 		printf("[.] bytes object info\n");
 		printf("  size: %d\n", (int)size);
-		byteString = PyBytes_AsString(p);
+		byteString = PyBytes_AS_STRING(p);
 		printf("  trying string: %s\n", byteString);
 		//check size, print size unless its larger than 10, then just print 10
 		for(i = 0; i <= 10 && i <= size; i++)
