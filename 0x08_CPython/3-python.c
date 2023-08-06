@@ -87,6 +87,7 @@ void print_python_bytes(PyObject *p)
 void print_python_float(PyObject *p)
 {
 	double value;
+	char *charvalue;
 	if (PyFloat_Check(p) == 1)
 	{
 		value = PyFloat_AsDouble(p);
@@ -94,7 +95,8 @@ void print_python_float(PyObject *p)
 
 		if (value == (int)value)
 		{
-			printf("  value: %.1f\n", value);
+			charvalue = PyOS_double_to_string(value, 'g', 1, 0, NULL);
+			printf("  value: %s\n", charvalue);
 		}
 		else
 			printf("  value: %.16g\n", value);
