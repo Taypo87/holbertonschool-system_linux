@@ -97,6 +97,7 @@ void print_python_float(PyObject *p)
 		{
 			charvalue = PyOS_double_to_string(value, 'g', 1, 0, NULL);
 			printf("  value: %s\n", charvalue);
+			printf("just checking\n")
 		}
 		else
 			printf("  value: %.16g\n", value);
