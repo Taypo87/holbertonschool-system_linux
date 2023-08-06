@@ -92,7 +92,7 @@ void print_python_float(PyObject *p)
 			printf("  value: %.1f\n", value);
 		}
 		else
-			printf("  value: %.15g\n", value);
+			printf("  value: %.16g\n", value);
 	}
 	else
 	{
