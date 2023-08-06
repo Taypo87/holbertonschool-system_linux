@@ -96,7 +96,7 @@ void print_python_float(PyObject *p)
 	}
 	else
 	{
-		printf("[.] float object info\n")
+		printf("[.] float object info\n");
 		printf("  [Error] Invalid Float Object\n");
 	}
 }
