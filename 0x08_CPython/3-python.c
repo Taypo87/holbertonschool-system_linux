@@ -95,7 +95,7 @@ void print_python_float(PyObject *p)
 
 		if (value == (int)value)
 		{
-			charvalue = PyOS_double_to_string(value, 'g', 2, 0, NULL);
+			charvalue = PyOS_double_to_string(value, 'g', 1, 0, NULL);
 			printf("  value: %s\n", charvalue);
 		}
 		else
