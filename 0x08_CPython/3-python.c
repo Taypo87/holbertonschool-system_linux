@@ -23,7 +23,7 @@ void print_python_list(PyObject *p)
 		printf("[*] Allocated = %d\n", (int)list->allocated);
 		for (i = 0; i < len; i++)
 		{
-			 element = PyList_GetItem(p, i);
+			 element = PyList_GET_ITEM(p, i);
 			 type = Py_TYPE(element);
 			 printf("Element %d: %s\n", ((int)i), type->tp_name);
 			 if (strncmp(type->tp_name, bytecheck, 5) == 0)
