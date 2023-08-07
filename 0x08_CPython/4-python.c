@@ -5,6 +5,7 @@ void print_python_string(PyObject *p)
     PyTypeObject *type;
     char *string = "str", *stringType;
     Py_ssize_t size;
+    wchar_t *value;
 
 
     type = Py_TYPE(p);
@@ -12,7 +13,15 @@ void print_python_string(PyObject *p)
     {
         printf("[.] string object info\n");
         
-        if (PyUnicode_Check(p))
+        if (PyUnicode_IS_COMPACT_ASCII(p))
+        {
+            size = PyUnicode_GET_LENGTH(p);
+            printf("  type: compact ascii\n");
+            printf("  length: %d\n", (int)size);
+            value = PyUnicode_AsWideCharString(p, NULL);
+            printf("  value: %ls\n", value);
+        }
+        else if (PyUnicode_Check(p))
         {
             size = PyUnicode_GET_LENGTH(p);
             printf("  type: compact unicode object\n");
@@ -20,16 +29,6 @@ void print_python_string(PyObject *p)
             stringType = PyUnicode_AsUTF8(p);
             printf("  value: %s\n", stringType);
         }
-        else
-        {
-            size = PyBytes_Size(p);
-            printf("  type: compact ascii\n");
-            printf("  length: %d\n", (int)size);
-            stringType = PyBytes_AsString(p);
-            printf("  value: %s\n", stringType);
-        }
-        
-
     }
     else
     {
