@@ -35,11 +35,13 @@ int main(int argc, char** argv)
             if (flip)
                 printf("%s", syscalls_64_g[regs.orig_rax].name);
             if (strcmp(syscalls_64_g[regs.orig_rax].name, write) != 0 && flip)
+            {
                 printf("\n");
-            else
+            }
+            if (strcmp(syscalls_64_g[regs.orig_rax].name, write) == 0)
                 writeflag = 1;
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
-            if (writeflag == 1 && !flip)
+            if (writeflag == 1)
                 printf("\n");
         }
     }
