@@ -32,7 +32,7 @@ int main(int argc, char** argv)
             ptrace(PTRACE_GETREGS, pid, 0, &regs);
             if (flip)
                 printf("%s", syscalls_64_g[regs.orig_rax].name);
-            waitpid(pid, &status, NULL);
+            waitpid(pid, &status, 0);
             if (flip)
                 printf("\n");
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
