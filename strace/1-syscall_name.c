@@ -29,6 +29,7 @@ int main(int argc, char** argv)
         ptrace(PTRACE_SYSCALL, pid, 0, 0);
         for (flip = 0; !WIFEXITED(status); flip ^= 1)
         {
+            writeflag = 0;
             waitpid(pid, &status, 0);
             ptrace(PTRACE_GETREGS, pid, 0, &regs);
             if (flip)
