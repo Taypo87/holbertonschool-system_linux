@@ -6,7 +6,6 @@ int main(int argc, char** argv)
     pid_t pid;
     int status, flip;
     struct user_regs_struct regs;
-    char* write = "write";
 
     if (check_arg(argc, argv) == 1)
         exit(EXIT_FAILURE);
@@ -33,7 +32,7 @@ int main(int argc, char** argv)
             ptrace(PTRACE_GETREGS, pid, 0, &regs);
             if (flip)
                 printf("%s", syscalls_64_g[regs.orig_rax].name);
-            waitpid(pid, NULL);
+            waitpid(pid, &status, NULL);
             if (flip)
                 printf("\n");
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
