@@ -8,6 +8,7 @@
 #include <sys/user.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <string.h>
 #include <linux/ptrace.h>
 
 
