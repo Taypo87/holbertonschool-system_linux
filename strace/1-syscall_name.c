@@ -32,7 +32,7 @@ int main(int argc, char** argv)
             
             waitpid(pid, &status, 0);
             ptrace(PTRACE_GETREGS, pid, 0, &regs);
-            if (writeflag == 1)
+            if (writeflag == 1 && flip)
                 printf("\n");
             writeflag = 0;
             if (flip)
