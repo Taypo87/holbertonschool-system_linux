@@ -14,7 +14,7 @@ int check_arg(int argc, char** argv)
     if (stat(argv[1], &sb) == -1)
     {
         fprintf(stderr, "%s: Can't stat '%s': No such file or directory\n",
-                            *argv, argv[1]);
+                            argv[0], argv[1]);
         return(1);
     }
     return(0);

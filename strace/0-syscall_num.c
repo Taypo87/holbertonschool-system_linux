@@ -4,7 +4,7 @@
 int main(int argc, char** argv)
 {
         pid_t pid;
-        int status;
+        int status, flip;
         struct user_regs_struct regs;
 
         if (check_arg(argc, argv) == 1)
@@ -26,13 +26,12 @@ int main(int argc, char** argv)
             ptrace(PTRACE_ATTACH, pid, NULL, NULL);
             waitpid(pid, &status, 0);
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
-            while (1)
+            for (flip = 0; !WIFEXITED(status); flip ^= 1)
             {
                 waitpid(pid, &status, 0);
                 ptrace(PTRACE_GETREGS, pid, 0, &regs);
-                if (WIFEXITED(status))
-                    break;
-                printf("%lu\n", (long)regs.orig_rax);
+                if (flip)
+                    printf("%lu\n", (long)regs.orig_rax);
                 ptrace(PTRACE_SYSCALL, pid, 0, 0);
             }
             ptrace(PTRACE_DETACH, pid, NULL, NULL);
