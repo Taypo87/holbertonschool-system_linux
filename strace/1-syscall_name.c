@@ -4,7 +4,7 @@
 int main(int argc, char** argv)
 {
     pid_t pid;
-    int status, flip;
+    int status, flip, writeflag = 0;
     struct user_regs_struct regs;
     char* write = "write";
 
@@ -35,7 +35,11 @@ int main(int argc, char** argv)
                 printf("%s", syscalls_64_g[regs.orig_rax].name);
             if (strcmp(syscalls_64_g[regs.orig_rax].name, write) != 0 && flip)
                 printf("\n");
+            else
+                writeflag = 1;
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
+            if (writeflag == 1)
+                printf("\n");
         }
     }
     return(0);
