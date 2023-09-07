@@ -23,7 +23,6 @@ int main(int argc, char** argv)
         }
         else
         {
-            ptrace(PTRACE_ATTACH, pid, NULL, NULL);
             waitpid(pid, &status, 0);
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
             for (flip = 0; !WIFEXITED(status); flip ^= 1)
@@ -34,7 +33,6 @@ int main(int argc, char** argv)
                     printf("%lu\n", (long)regs.orig_rax);
                 ptrace(PTRACE_SYSCALL, pid, 0, 0);
             }
-            ptrace(PTRACE_DETACH, pid, NULL, NULL);
         }
         return(0);
 }
