@@ -9,6 +9,7 @@ int main(int argc, char** argv)
 
         if (check_arg(argc, argv) == 1)
             exit(EXIT_FAILURE);
+        setbuf(stdout, NULL);
         
         pid = fork();
         if (pid == -1)
