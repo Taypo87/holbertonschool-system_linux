@@ -36,5 +36,6 @@ int main(int argc, char** argv)
                 ptrace(PTRACE_SYSCALL, pid, 0, 0);
             }
         }
+        printf("exit_group = ?\n");
         return(0);
 }
