@@ -29,9 +29,12 @@ int main(int argc, char** argv)
         ptrace(PTRACE_SYSCALL, pid, 0, 0);
         for (flip = 0; !WIFEXITED(status); flip ^= 1)
         {
-            writeflag = 0;
+            
             waitpid(pid, &status, 0);
             ptrace(PTRACE_GETREGS, pid, 0, &regs);
+            if (writeflag == 1)
+                printf("\n");
+            writeflag = 0;
             if (flip)
                 printf("%s", syscalls_64_g[regs.orig_rax].name);
             if (strcmp(syscalls_64_g[regs.orig_rax].name, write) != 0 && flip)
@@ -41,8 +44,7 @@ int main(int argc, char** argv)
             if (strcmp(syscalls_64_g[regs.orig_rax].name, write) == 0)
                 writeflag = 1;
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
-            if (writeflag == 1)
-                printf("\n");
+            
         }
     }
     return(0);
