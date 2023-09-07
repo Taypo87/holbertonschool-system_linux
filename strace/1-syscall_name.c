@@ -38,7 +38,7 @@ int main(int argc, char** argv)
             else
                 writeflag = 1;
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
-            if (writeflag == 1 && flip)
+            if (writeflag != 1 && flip)
                 printf("\n");
         }
     }
