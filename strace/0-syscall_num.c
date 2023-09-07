@@ -31,7 +31,7 @@ int main(int argc, char** argv)
                 waitpid(pid, &status, 0);
                 ptrace(PTRACE_GETREGS, pid, 0, &regs);
                 if (flip)
-                    printf("%lu\n", regs.orig_rax);
+                    printf("%lu\n", (long)regs.orig_rax);
                 ptrace(PTRACE_SYSCALL, pid, 0, 0);
             }
         }
