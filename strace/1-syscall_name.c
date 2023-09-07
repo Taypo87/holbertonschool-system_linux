@@ -33,7 +33,7 @@ int main(int argc, char** argv)
             ptrace(PTRACE_GETREGS, pid, 0, &regs);
             if (flip)
                 printf("%s", syscalls_64_g[regs.orig_rax].name);
-            if (strcmp(syscalls_64_g[regs.orig_rax].name, write) != 0 && !flip)
+            if (strcmp(syscalls_64_g[regs.orig_rax].name, write) != 0 && flip)
                 printf("\n");
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
         }
