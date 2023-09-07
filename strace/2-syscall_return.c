@@ -31,7 +31,7 @@ int main(int argc, char** argv)
                 waitpid(pid, &status, 0);
                 memset(&regs, 0, sizeof(regs));
                 ptrace(PTRACE_GETREGS, pid, 0, &regs);
-                if (flip)
+                if (flip & !WIFEXITED(status))
                     printf("%s = %#lx\n", syscalls_64_g[regs.orig_rax].name, (long)regs.rax);
                 ptrace(PTRACE_SYSCALL, pid, 0, 0);
             }
