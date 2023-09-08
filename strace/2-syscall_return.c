@@ -4,14 +4,11 @@
 int main(int argc, char** argv)
 {
         pid_t pid;
-        int status, flip, writeflag;
+        int status, flip;
         struct user_regs_struct regs;
-        char* write = "write";
 
         if (check_arg(argc, argv) == 1)
             exit(EXIT_FAILURE);
-        setbuf(stdout, NULL);
-        
         pid = fork();
         if (pid == -1)
             exit(EXIT_FAILURE);
@@ -30,33 +27,25 @@ int main(int argc, char** argv)
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
             waitpid(pid, &status, 0);
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
-            for (flip = 0; !WIFEXITED(status); flip ^= 1)
+            for (flip = 1; !WIFEXITED(status); flip ^= 1)
             {
-                waitpid(pid, &status, 0);
                 memset(&regs, 0, sizeof(regs));
                 ptrace(PTRACE_GETREGS, pid, 0, &regs);
-                if (writeflag == 1 && flip)
-                    printf("\n");
-                writeflag = 0;
-                if (!flip & strcmp(syscalls_64_g[regs.orig_rax].name, write) == 0) // catch the write on entry instead of exit
-                // logic for handling the write system call on entry
-                // else the logic for a normal system call  on exit
-                if (flip & !WIFEXITED(status))
+                if ((int)regs.orig_rax == 252)
+                    break;
+                if (!flip)
                 {
-                    if (writeflag == 1)
-                        printf("\n = %lx\n", (long)regs.rax);
-                    writeflag = 0;
                     printf("%s", syscalls_64_g[regs.orig_rax].name);
-                    if (strcmp(syscalls_64_g[regs.orig_rax].name, write) != 0)
-                        printf(" = %lx\n", (long)regs.rax);
-                    else
-                        writeflag = 1;
-                    fflush(stdout);
                 }
-                if (!flip & strcmp(syscalls_64_g[regs.orig_rax].name, write) == 0)
+                if (flip)
+                {
+                    fflush(stdout);
+                    printf(" = %s%lx\n", regs.rax?"0x":"", (long)regs.rax);
+                }
                 ptrace(PTRACE_SYSCALL, pid, 0, 0);
+                waitpid(pid, &status, 0);
             }
         }
-        printf("exit_group = ?\n");
+        printf(" = ?\n");
         return(0);
 }
