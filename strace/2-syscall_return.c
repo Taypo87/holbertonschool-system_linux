@@ -9,6 +9,7 @@ int main(int argc, char** argv, char** envp)
 
         if (check_arg(argc, argv) == 1)
             exit(EXIT_FAILURE);
+        setbuf(stdout, NULL);
         pid = fork();
         if (pid == -1)
             exit(EXIT_FAILURE);
@@ -16,7 +17,7 @@ int main(int argc, char** argv, char** envp)
         if (pid == 0)
         {
             ptrace(PTRACE_TRACEME, 0, 0, 0);
-            //kill(getpid(), SIGSTOP);
+            kill(getpid(), SIGSTOP);
             execve(argv[1], argv+1, envp);
             exit(EXIT_FAILURE);
         }
