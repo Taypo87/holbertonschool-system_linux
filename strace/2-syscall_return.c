@@ -24,7 +24,7 @@ int main(int argc, char** argv, char** envp)
         else
         {
             wait(&status);
-            ptrace(PTRACE_SETOPTIONS, pid, 0, PTRACE_O_TRACESYSGOOD);
+            //ptrace(PTRACE_SETOPTIONS, pid, 0, PTRACE_O_TRACESYSGOOD);
             //ptrace(PTRACE_SYSCALL, pid, 0, 0);
             //wait(&status);
             for (flip = 0; !WIFEXITED(status); flip ^= 1)
