@@ -33,12 +33,12 @@ int main(int argc, char** argv, char** envp)
                 ptrace(PTRACE_GETREGS, pid, 0, &regs);
                 if ((int)regs.orig_rax == 252)
                     break;
-                if (!flip && (count > 2))
+                if (!flip && (count > 4))
                 {
                     printf("%s", syscalls_64_g[regs.orig_rax].name);
                     fflush(stdout);
                 }
-                if (flip && (count > 2))
+                if (flip && (count > 4))
                 {
                     printf(" = %s%lx\n", regs.rax?"0x":"", (long)regs.rax);
                 }
