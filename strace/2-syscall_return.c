@@ -41,7 +41,7 @@ int main(int argc, char** argv)
                 writeflag = 0;
                 if (flip & !WIFEXITED(status))
                 {
-                    if (writeflag)
+                    if (writeflag == 1)
                         printf("\n = %lx\n", (long)regs.rax);
                     writeflag = 0;
                     printf("%s", syscalls_64_g[regs.orig_rax].name);
