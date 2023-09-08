@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 
         if (check_arg(argc, argv) == 1)
             exit(EXIT_FAILURE);
-        
+        setbuf(stdout, NULL);
         
         pid = fork();
         if (pid == -1)
@@ -28,8 +28,9 @@ int main(int argc, char** argv)
             waitpid(pid, &status, 0);
             ptrace(PTRACE_SETOPTIONS, pid, 0, PTRACE_O_TRACESYSGOOD);
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
+            waitpid(pid, &status, 0);
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
-            for (flip = 1; !WIFEXITED(status); flip ^= 1)
+            for (flip = 0; !WIFEXITED(status); flip ^= 1)
             {
 
                 
