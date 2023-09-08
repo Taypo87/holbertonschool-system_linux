@@ -38,6 +38,9 @@ int main(int argc, char** argv)
                 if (writeflag == 1 && flip)
                     printf("\n");
                 writeflag = 0;
+                if (!flip & strcmp(syscalls_64_g[regs.orig_rax].name, write) == 0) // catch the write on entry instead of exit
+                // logic for handling the write system call on entry
+                // else the logic for a normal system call  on exit
                 if (flip & !WIFEXITED(status))
                 {
                     if (writeflag == 1)
@@ -50,6 +53,7 @@ int main(int argc, char** argv)
                         writeflag = 1;
                     fflush(stdout);
                 }
+                if (!flip & strcmp(syscalls_64_g[regs.orig_rax].name, write) == 0)
                 ptrace(PTRACE_SYSCALL, pid, 0, 0);
             }
         }
