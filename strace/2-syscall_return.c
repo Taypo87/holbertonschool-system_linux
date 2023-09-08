@@ -45,6 +45,7 @@ int main(int argc, char** argv, char** envp)
                 ptrace(PTRACE_SYSCALL, pid, 0, 0);
                 wait(&status);
                 count++;
+                
             }
         }
         printf(" = ?\n");
