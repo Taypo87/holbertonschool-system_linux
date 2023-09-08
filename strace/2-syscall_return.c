@@ -32,8 +32,6 @@ int main(int argc, char** argv)
             ptrace(PTRACE_SYSCALL, pid, 0, 0);
             for (flip = 0; !WIFEXITED(status); flip ^= 1)
             {
-
-                
                 waitpid(pid, &status, 0);
                 memset(&regs, 0, sizeof(regs));
                 ptrace(PTRACE_GETREGS, pid, 0, &regs);
@@ -50,6 +48,7 @@ int main(int argc, char** argv)
                         printf(" = %lx\n", (long)regs.rax);
                     else
                         writeflag = 1;
+                    fflush(stdout);
                 }
                 ptrace(PTRACE_SYSCALL, pid, 0, 0);
             }
