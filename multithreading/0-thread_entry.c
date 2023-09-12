@@ -1,5 +1,5 @@
 #include "multithreading.h"
-#include "threadhead.h"
+
 /**
  * thread_entry - creates entry point for thread
  * @arg: argument to print
