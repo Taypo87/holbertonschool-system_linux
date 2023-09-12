@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <pthreads.h>
+#include <pthread.h>
 
 /**
  * struct pixel_s - RGB pixel
