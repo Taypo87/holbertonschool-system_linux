@@ -13,7 +13,9 @@ int tprintf(char const *format, ...)
 {
 	pthread_t id = pthread_self();
 
+    pthread_mutex_lock(&lock);
 	printf("[%lu] %s", id, format);
+    pthread_mutex_unlock(&lock);
 	return (0);
 }
 void begin(void)
