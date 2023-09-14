@@ -54,6 +54,9 @@ int tprintf(char const *format, ...);
 unsigned long find_next_prime(unsigned long prime, unsigned long num);
 list_t *prime_factors(char const *s);
 int prime_check(unsigned long num);
+task_t *create_task(task_entry_t entry, void *param);
+void destroy_task(task_t *task);
+void *exec_tasks(list_t const *tasks);
 
 
 #endif
