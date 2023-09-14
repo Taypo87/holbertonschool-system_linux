@@ -1,3 +1,6 @@
+#ifndef MULTITHREADING_H
+#define MULTITHREADING_H
+
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -77,3 +80,6 @@ int tprintf(char const *format, ...);
 unsigned long find_next_prime(unsigned long prime, unsigned long num);
 list_t *prime_factors(char const *s);
 int prime_check(unsigned long num);
+
+
+#endif

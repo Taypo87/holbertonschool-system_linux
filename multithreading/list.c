@@ -64,12 +64,11 @@ list_t *list_init(list_t *list)
  */
 void list_destroy(list_t *list,  node_func_t free_func)
 {
-	node_t *node;
+	node_t *node, *tmp;
 
 	for (node = list->head; node;)
 	{
-		node_t *tmp = node;
-
+		tmp = node;
 		if (free_func)
 			free_func(node->content);
 		node = node->next;
