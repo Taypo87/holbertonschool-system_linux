@@ -5,6 +5,10 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <pthread.h>
+#include <unistd.h>
+#include <unistd.h>
+#include <stdint.h>
+#include "list.h"
 
 /**
  * struct pixel_s - RGB pixel
@@ -70,5 +74,6 @@ typedef struct blur_portion_s
 
 void *thread_entry(void *arg);
 int tprintf(char const *format, ...);
-void blur_portion(blur_portion_t const *portion);
-void blur_image(img_t *img_blur, img_t const *img, kernel_t const *kernel);
+unsigned long find_next_prime(unsigned long prime, unsigned long num);
+list_t *prime_factors(char const *s);
+int prime_check(unsigned long num);
