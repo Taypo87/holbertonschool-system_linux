@@ -1,6 +1,6 @@
 #include "multithreading.h"
 
-pthread_mutex_t lock;
+static pthread_mutex_t lock;
 void begin (void) __attribute__((constructor));
 void end (void) __attribute__((destructor));
 

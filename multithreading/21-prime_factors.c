@@ -18,8 +18,6 @@ list_t *prime_factors(char const *s)
             num /= i;
         }
     }
-    if (num > 2)
-        list_add(list, (void*)num);
     return(list);
 
 }
