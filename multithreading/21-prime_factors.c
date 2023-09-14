@@ -4,8 +4,7 @@
 list_t *prime_factors(char const *s)
 {
     list_t *list;
-    unsigned long num = strtoul(s, NULL, 10), prime = 2, i, *templong;
-    // use strtoul instead of atoi
+    unsigned long num = strtoul(s, NULL, 10), i, *templong;
     list = malloc(sizeof(list_t));
     
     list_init(list);
