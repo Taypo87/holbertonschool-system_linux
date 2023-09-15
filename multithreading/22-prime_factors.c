@@ -19,6 +19,7 @@ void destroy_task(task_t *task)
     if (task->result != NULL)
     {
         list_destroy(task->result, free);
+        free((list_t *) task->result);
         task->result = NULL;
         free(task);
     }
