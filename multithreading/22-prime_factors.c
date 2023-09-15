@@ -30,7 +30,7 @@ void *exec_tasks(list_t const *tasks)
     int i = 0;
     node = tasks->head;
 
-    while (node->next != NULL)
+    while (node)
     {
         task = node->content;
         if (pthread_mutex_trylock(&task->lock))
