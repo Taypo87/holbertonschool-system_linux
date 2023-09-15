@@ -25,18 +25,16 @@ void destroy_task(task_t *task)
 }
 void *exec_tasks(list_t const *tasks)
 {
-    task_t *task;
-    node_t *node;
+    task_t *task = NULL;
+    node_t *node = NULL;
     int i = 0;
     node = tasks->head;
 
     while (node->next != NULL)
     {
-
+        task = node->content;
         if (pthread_mutex_trylock(&task->lock))
         {
-            pthread_mutex_lock(&task->lock);
-            task = node->content;
             if (task->status == PENDING)
             {
                 task->status = STARTED;

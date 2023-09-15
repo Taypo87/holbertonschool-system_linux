@@ -1,6 +1,8 @@
 #include "multithreading.h"
+#include <stdarg.h>
 
-static pthread_mutex_t lock;
+static pthread_mutex_t mutex_print;
+
 void begin (void) __attribute__((constructor));
 void end (void) __attribute__((destructor));
 
@@ -11,19 +13,33 @@ void end (void) __attribute__((destructor));
 */
 int tprintf(char const *format, ...)
 {
-	pthread_t id = pthread_self();
+	va_list args;
+	pthread_t thread_num;
 
-    pthread_mutex_lock(&lock);
-	printf("[%lu] %s", id, format);
-    pthread_mutex_unlock(&lock);
-	return (0);
-}
-void begin(void)
-{
-	pthread_mutex_init(&lock, NULL);
-}
+	va_start(args, format);
 
-void end(void)
-{
-	pthread_mutex_destroy(&lock);
+	if (!format)
+	{
+		printf("format string error");
+		exit(EXIT_FAILURE);
+	}
+
+	if (pthread_mutex_lock(&mutex_print))
+	{
+		printf("mutex lock failed\n");
+		exit(EXIT_FAILURE);
+	}
+	thread_num = pthread_self();
+
+	printf("[%lu] ", thread_num);
+	vprintf(format, args);
+
+	if (pthread_mutex_unlock(&mutex_print))
+	{
+		printf("mutex unlock failed");
+		exit(EXIT_FAILURE);
+	}
+	va_end(args);
+
+	return (EXIT_SUCCESS);
 }
