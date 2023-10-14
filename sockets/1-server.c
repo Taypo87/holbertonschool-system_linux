@@ -8,7 +8,7 @@ int main(void)
 	int socketfd, backlog = 8;
 	struct sockaddr_in *address, *inbound_in;
 	struct sockaddr *inbound_address;
-	socklen_t *inbound_addrlength;
+	socklen_t *inbound_addrlength = 0;
 	char *ip;
 	
 	socketfd = socket(AF_INET, SOCK_STREAM, 0);
