@@ -3,7 +3,7 @@
  * main - sets up a listening socket
  * Return: 0 on success, a sginal should kill program before returning
 */
-void main(void)
+int main(void)
 {
 	int socketfd, backlog = 8;
 	struct sockaddr_in *address;
