@@ -5,7 +5,7 @@
 */
 int main(void)
 {
-	int socketfd, backlog = 8, i = 0;
+	int socketfd, backlog = 8;
 	struct sockaddr_in *address, *inbound_in;
 	struct sockaddr *inbound_address;
 	socklen_t *inbound_addrlength;
