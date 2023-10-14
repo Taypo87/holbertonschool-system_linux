@@ -1,5 +1,10 @@
 #include "socket.h"
-
+/**
+ * main - connects to a local socket
+ * @argc: the argument count
+ * @argv: the argument vector
+ * Return: 0
+*/
 int main(int argc, char **argv)
 {
 	int socketfd;
