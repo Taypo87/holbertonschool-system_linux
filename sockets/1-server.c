@@ -5,7 +5,7 @@
 */
 int main(void)
 {
-	int socketfd, backlog = 8, inbound_socketfd, i = 0;
+	int socketfd, backlog = 8, i = 0;
 	struct sockaddr_in *address, *inbound_in;
 	struct sockaddr *inbound_address;
 	socklen_t *inbound_addrlength;
@@ -21,7 +21,7 @@ int main(void)
 	printf("Server listening on port 12345\n");
 	while (listen(socketfd, backlog) == 0)
 	{
-		inbound_socketfd = accept(socketfd, inbound_address, inbound_addrlength);
+		accept(socketfd, inbound_address, inbound_addrlength);
 		inbound_in = (struct sockaddr_in *)inbound_address;
 		ip = inet_ntoa(inbound_in->sin_addr);
 		printf("Client connected: %s", ip);
