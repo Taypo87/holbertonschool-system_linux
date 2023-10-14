@@ -1,8 +1,9 @@
 #include "socket.h"
 /**
  * main - sets up a listening socket
+ * Return: 0 on success, a sginal should kill program before returning
 */
-int main(void)
+void main(void)
 {
 	int socketfd, backlog = 8;
 	struct sockaddr_in *address;
@@ -14,9 +15,9 @@ int main(void)
 	address->sin_addr.s_addr = INADDR_ANY;
 	bind(socketfd, (struct sockaddr *)address, sizeof(struct sockaddr_in));
 	printf("Server listening on port 12345\n");
-	while(listen(socketfd, backlog) == 0)
+	while (listen(socketfd, backlog) == 0)
 	{
 
 	}
-	return(0);
+	return (0);
 }
