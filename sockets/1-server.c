@@ -10,7 +10,7 @@ int main(void)
 	struct sockaddr *inbound_address;
 	socklen_t *inbound_addrlength = 0;
 	char *ip;
-	
+
 	socketfd = socket(AF_INET, SOCK_STREAM, 0);
 	address = calloc(1, sizeof(struct sockaddr_in));
 	inbound_address = calloc(1, sizeof(struct sockaddr));
