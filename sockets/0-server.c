@@ -2,8 +2,7 @@
 
 int main()
 {
-    int socketfd, backlog = 8, i;
-    char *addname = "12345";
+    int socketfd, backlog = 8;
     struct sockaddr_in *address;
 
     socketfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -17,5 +16,5 @@ int main()
     {
 
     }
-
+    return(0);
 }
