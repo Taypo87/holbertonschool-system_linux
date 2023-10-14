@@ -9,7 +9,6 @@ int main(void)
 	struct sockaddr_in *address, *inbound_in;
 	struct sockaddr *inbound_address;
 	socklen_t *inbound_addrlength = 0;
-	char *ip;
 
 	socketfd = socket(AF_INET, SOCK_STREAM, 0);
 	address = calloc(1, sizeof(struct sockaddr_in));
@@ -23,9 +22,7 @@ int main(void)
 	{
 		accept(socketfd, inbound_address, inbound_addrlength);
 		inbound_in = (struct sockaddr_in *)inbound_address;
-		ip = inet_ntoa(inbound_in->sin_addr);
-		printf("Client connected: %s", ip);
-		printf("\n");
+		printf("Client connected: %s\n", inet_ntoa(inbound_in->sin_addr));
 		break;
 	}
 	return (0);
