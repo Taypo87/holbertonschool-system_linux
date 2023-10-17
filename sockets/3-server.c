@@ -30,7 +30,7 @@ int main(void)
 		if (byte_received > 0)
 		{
 			message[byte_received] = '\0';
-			printf("Message received: %s\n", message);
+			printf("Message received: \"%s\"\n", message);
 		}
 		break;
 	}
