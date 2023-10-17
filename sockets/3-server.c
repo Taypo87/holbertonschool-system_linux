@@ -8,7 +8,7 @@ int main(void)
 	int socketfd, clientfd, backlog = 8;
 	struct sockaddr_in *address, *inbound_in;
 	struct sockaddr *inbound_address;
-	socklen_t *inbound_addrlength = NULL;
+	socklen_t *inbound_addrlength = calloc(1, sizeof(socklen_t));
     char message[1024];
     ssize_t byte_received;
 
