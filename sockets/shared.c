@@ -83,4 +83,5 @@ void task5_breakdown(void *message_received)
         printf("\"%s\"\n", querystrg);
         querystrg = strtok(NULL, "=");
     }
+    fflush(stdout);
 }
