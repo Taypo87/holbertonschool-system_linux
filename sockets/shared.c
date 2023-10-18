@@ -43,22 +43,44 @@ int accept_connection(int socketfd)
 
     return (clientfd);
 }
-void request_received(int clientfd)
+char * request_received(int clientfd)
 {
-    char message_received[4096], message_sent[4096];
+    char message_received[4096], message_sent[4096], *msgrcv;
     ssize_t byte_received;
     size_t message_size = sizeof(message_sent);
 
     byte_received = recv(clientfd, message_received, sizeof(message_received), 0);
 	if (byte_received > 0)
 	{
-		
+		msgrcv = message_received;
 		printf("Raw request: \"%s\"\n", message_received);
         snprintf(message_sent, sizeof(message_sent),
              "HTTP/1.1 200 OK\r\n");
         send(clientfd, message_sent, message_size, 0);
-        requst_breakdown_printout((void *)message_received);
         close(clientfd);
         fflush(stdout);
+    }
+    return (msgrcv);
+}
+
+void task5_breakdown(void *message_received)
+{
+    char *token, *querystrg;
+
+    
+    token = (char *)message_received;
+    token = strtok(token, " ");
+    token = strtok(NULL, " ");
+    querystrg = strdup(token);
+    querystrg = strtok(querystrg, "?");
+    printf("Path: %s\n", querystrg);
+    querystrg = strtok(NULL, "=");
+    while(querystrg)
+    {
+        
+        printf("Query: \"%s\" -> ", querystrg);
+        querystrg = strtok(NULL, "&\n\r");
+        printf("\"%s\"\n", querystrg);
+        querystrg = strtok(NULL, "=");
     }
 }

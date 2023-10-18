@@ -16,7 +16,8 @@
 void requst_breakdown_printout(void *message_received);
 int initiate_socket();
 int accept_connection(int socketfd);
-void request_received(int clientfd);
+char * request_received(int clientfd);
+void task5_breakdown(void *message_received);
 
 
 
