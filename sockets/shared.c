@@ -85,3 +85,17 @@ void task5_breakdown(void *message_received)
     }
     fflush(stdout);
 }
+
+void task6_breakdown(void *message_received)
+{
+    char *token, *host, *host_value;
+
+    token = (char *)message_received;
+    token = strtok(token, " ");
+    token = strtok(NULL, "\n");
+    host = strtok(NULL, " ");
+    host_value = strtok(NULL, "\n");
+    printf("Header: \"%s\"", host);
+    printf(" -> \"%s\"", host_value);
+    fflush(stdout);
+}
