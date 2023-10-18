@@ -52,7 +52,7 @@ void request_received(int clientfd)
     byte_received = recv(clientfd, message_received, sizeof(message_received), 0);
 	if (byte_received > 0)
 	{
-		//message_received[byte_received] = '\0';
+		
 		printf("Raw request: \"%s\"\n", message_received);
         snprintf(message_sent, sizeof(message_sent),
              "HTTP/1.1 200 OK\r\n");
