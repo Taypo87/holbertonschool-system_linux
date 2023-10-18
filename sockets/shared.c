@@ -8,7 +8,7 @@ void requst_breakdown_printout(void *message_received)
     printf("Method: %s\n", token);
     token = strtok(NULL, " ");
     printf("Path: %s\n", token);
-    token = strtok(NULL, " \n");
+    token = strtok(NULL, " \r\n");
     printf("Version: %s\n", token);
     fflush(stdout);
 }
