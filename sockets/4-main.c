@@ -15,6 +15,5 @@ int main(void)
 		clientfd = accept_connection(socketfd);
 		request_received(clientfd);
 	}
-    fflush(stdout);
 	return (0);
 }

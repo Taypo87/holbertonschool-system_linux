@@ -10,6 +10,7 @@ void requst_breakdown_printout(void *message_received)
     printf("Path: %s\n", token);
     token = strtok(NULL, " ");
     printf("Version: %s\n", token);
+    fflush(stdout);
 }
 
 int initiate_socket()
@@ -38,6 +39,7 @@ int accept_connection(int socketfd)
     clientfd = accept(socketfd, inbound_address, inbound_addrlength);
     inbound_address_in = (struct sockaddr_in *)inbound_address;
     printf("Client connected: %s\n", inet_ntoa(inbound_address_in->sin_addr));
+    fflush(stdout);
 
     return (clientfd);
 }
@@ -57,5 +59,6 @@ void request_received(int clientfd)
         send(clientfd, message_sent, message_size, 0);
         requst_breakdown_printout((void *)message_received);
         close(clientfd);
+        fflush(stdout);
     }
 }
