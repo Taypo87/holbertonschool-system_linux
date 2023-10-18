@@ -12,9 +12,10 @@ void requst_breakdown_printout(void *message_received)
     printf("Version: %s\n", token);
 }
 
-int initiate_socket(struct sockaddr_in *address)
+int initiate_socket()
 {
     int socketfd;
+    struct sockaddr_in *address;
 
     socketfd = socket(AF_INET, SOCK_STREAM, 0);
 	address = calloc(1, sizeof(struct sockaddr_in));
@@ -26,13 +27,13 @@ int initiate_socket(struct sockaddr_in *address)
     return (socketfd);
 }
 
-int accept_connection(struct sockaddr *inbound_address, int socketfd)
+int accept_connection(int socketfd)
 {
     socklen_t *inbound_addrlength = calloc(1, sizeof(socklen_t));
+    struct sockaddr *inbound_address = calloc(1, sizeof(struct sockaddr));
     struct sockaddr_in *inbound_address_in;
     int clientfd;
 
-    inbound_address = calloc(1, sizeof(struct sockaddr));
     *inbound_addrlength = (socklen_t)sizeof(struct sockaddr);
     clientfd = accept(socketfd, inbound_address, inbound_addrlength);
     inbound_address_in = (struct sockaddr_in *)inbound_address;
