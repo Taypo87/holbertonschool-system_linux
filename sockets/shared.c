@@ -88,14 +88,24 @@ void task5_breakdown(void *message_received)
 
 void task6_breakdown(void *message_received)
 {
-    char *token, *host, *host_value;
+    char *token, *host, *host_value, *user_agent, *ok, *slash;
 
     token = (char *)message_received;
     token = strtok(token, " ");
     token = strtok(NULL, "\n");
-    host = strtok(NULL, " ");
+    token = strtok(NULL, " ");
+    host = strdup(token);
     host_value = strtok(NULL, "\n");
+    host_value = strdup(token);
+    user_agent = strtok(NULL, " ");
+    token = strtok(NULL, " ");
+    ok = strtok(NULL, " \n");
+    slash = strtok(NULL, " \r");
+    printf("Header: \"%s\"", user_agent);
+    printf(" -> \"%s\"\n", token);
     printf("Header: \"%s\"", host);
-    printf(" -> \"%s\"", host_value);
+    printf(" -> \"%s\"\n", host_value);
+    printf("Header: \"%s\"", ok);
+    printf(" -> \"%s\"\n", slash);
     fflush(stdout);
 }
