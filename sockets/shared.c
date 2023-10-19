@@ -106,6 +106,6 @@ void task6_breakdown(void *message_received)
     printf("Header: \"%s\"", host);
     printf(" -> \"%s\"\n", host_value);
     printf("Header: \"%s\"", ok);
-    printf(" -> \"%s\b\"\n", slash);
+    printf(" -> \"%s\"\n", slash);
     fflush(stdout);
 }
