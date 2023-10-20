@@ -20,6 +20,7 @@ char * request_received(int clientfd);
 void task5_breakdown(void *message_received);
 void task6_breakdown(char *message_received);
 int header_kv(char *start, char *end);
+void task7_breakdown(char * message_received);
 
 
 
