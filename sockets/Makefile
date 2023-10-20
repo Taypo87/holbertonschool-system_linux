@@ -24,6 +24,6 @@ todo_api_2: 6-main.o shared.o
 	$(CC) $(CFLAGS) -o todo_api_2 6-main.o shared.o
 
 clean:
-	rm -f *.o task4 task5
+	rm -f *.o  todo_api_*
 
 .PHONY: clean

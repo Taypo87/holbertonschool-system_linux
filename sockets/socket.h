@@ -18,7 +18,8 @@ int initiate_socket();
 int accept_connection(int socketfd);
 char * request_received(int clientfd);
 void task5_breakdown(void *message_received);
-void task6_breakdown(void *message_received);
+void task6_breakdown(char *message_received);
+int header_kv(char *start, char *end);
 
 
 
