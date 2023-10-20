@@ -114,7 +114,7 @@ int header_kv(char *start, char *end)
     sep = strstr(start, ": ");
     if (!sep)
         return (0);
-    printf("Header \"%.*s\" -> \"%.*s\"\n", 
+    printf("Header: \"%.*s\" -> \"%.*s\"\n", 
             (int)(sep - start), start,
              (int)(end - sep - 2), (sep + 2));
 
