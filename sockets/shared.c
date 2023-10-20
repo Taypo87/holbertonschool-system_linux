@@ -91,7 +91,7 @@ void task6_breakdown(char *message_received)
 {
     char *start, *end;
 
-    start = message_received + 20;
+    start = message_received + 16;
     end = strstr(start, "\r\n");
     while(end)
     {
