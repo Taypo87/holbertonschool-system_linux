@@ -123,12 +123,13 @@ int header_kv(char *start, char *end)
 
 void task7_breakdown(char * message_received)
 {
-    char *start, *path;
+    char *path, *end, *start;
 
-    start = strtok(message_received, " ");
-    path = strtok(NULL, " ");
-    printf("Path: %s\n", path);
-    start = strtok(NULL, "=");
+    path = strstr(message_received, "/");
+    end = strstr(path, " "); 
+    printf("Path: %.*s\n", (int)(end - path), path);
+    start = strstr(message_received, "\r\n\r\n") + 4;
+    start = strtok(start, "=");
     while (start)
     {
         printf("Body param: \"%s\" -> ", start);
@@ -136,6 +137,5 @@ void task7_breakdown(char * message_received)
         printf("\"%s\"\n", start);
         start = strtok(NULL, "=");
     }
-
     fflush(stdout);
 }
