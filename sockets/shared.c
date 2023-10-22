@@ -1,17 +1,5 @@
 #include "socket.h"
 
-void requst_breakdown_printout(void *message_received)
-{
-    char *token;
-    token = (char *)message_received;
-    token = strtok(token, " ");
-    printf("Method: %s\n", token);
-    token = strtok(NULL, " ");
-    printf("Path: %s\n", token);
-    token = strtok(NULL, " \r\n");
-    printf("Version: %s\n", token);
-    fflush(stdout);
-}
 
 int initiate_socket()
 {
@@ -43,6 +31,7 @@ int accept_connection(int socketfd)
 
     return (clientfd);
 }
+
 char * request_received(int clientfd)
 {
     char message_received[4096], message_sent[4096], *msgrcv;
@@ -63,79 +52,117 @@ char * request_received(int clientfd)
     return (msgrcv);
 }
 
-void task5_breakdown(void *message_received)
+struct client_info *accept_connection_api(int socketfd)
 {
-    char *token, *querystrg;
+    socklen_t *inbound_addrlength = calloc(1, sizeof(socklen_t));
+    struct sockaddr *inbound_address = calloc(1, sizeof(struct sockaddr));
+    struct sockaddr_in *inbound_address_in;
+    struct client_info *client = calloc (1, sizeof(struct client_info)); 
+    int clientfd;
 
-    
-    token = (char *)message_received;
-    token = strtok(token, " ");
-    token = strtok(NULL, " ");
-    querystrg = strdup(token);
-    querystrg = strtok(querystrg, "?");
-    printf("Path: %s\n", querystrg);
-    querystrg = strtok(NULL, "=");
-    while(querystrg)
-    {
-        
-        printf("Query: \"%s\" -> ", querystrg);
-        querystrg = strtok(NULL, "&\n\r");
-        printf("\"%s\"\n", querystrg);
-        querystrg = strtok(NULL, "=");
-    }
+    *inbound_addrlength = (socklen_t)sizeof(struct sockaddr);
+    clientfd = accept(socketfd, inbound_address, inbound_addrlength);
+    inbound_address_in = (struct sockaddr_in *)inbound_address;
+    client->clientfd = clientfd;
+    client->clientip = inet_ntoa(inbound_address_in->sin_addr);
     fflush(stdout);
+
+    return (client);
 }
 
 
-void task6_breakdown(char *message_received)
+char *request_received_api(client_info *client)
 {
-    char *start, *end;
+    //use this function to parse and check the request
+    char message_received[4096], message_sent[4096], *msgrcv;
+    ssize_t byte_received;
+    size_t message_size = sizeof(message_sent);
+    int error;
 
-    start = message_received + 16;
-    end = strstr(start, "\r\n");
-    while(end)
+    byte_received = recv(client->clientfd, message_received, sizeof(message_received), 0);
+	if (byte_received < 1)
+        return(NULL);
+	msgrcv = message_received;
+    if (parse_request(msgrcv, client) < 0)
     {
-        if(header_kv(start, end))
+        snprintf(message_sent, sizeof(message_sent),
+             "404 Not Found\r\n");
+        send(client->clientfd, message_sent, message_size, 0);
+    }
+    return (msgrcv);
+}
+
+
+int parse_request(char *msgrcv, client_info *client)
+{
+    char *start, *method, *path, message_sent[1024];
+    size_t msglen, sent_len;
+    todos **head;
+
+    printf("%s\n", msgrcv);
+    start = strdup(msgrcv);
+    method = strtok(msgrcv, " ");
+    path = strtok(NULL, " ");
+    start = strstr(start, "\r\n\r\n") + 4;
+    msglen = strlen(start);
+    if (strcmp(path, "/todos") != 0)
+        return (-1);
+    if (strcmp(method, "POST") == 0)
+    {
+        head = post_method(start);
+        if(!head)
         {
-            start = end + 2;
-            end = strstr(start, "\r\n");
-        }
-        else
-            break;
+            snprintf(message_sent, sizeof(message_sent),
+             "422 Unprocessable Entity\r\n");
+            send(client->clientfd, message_sent, sizeof(message_sent), 0);
+        }   
     }
-    fflush(stdout);
+    else if (strcmp(method, "GET") == 0)
+        get_method(head, client);
+    else
+        return (-1);
+    
 }
 
-
-int header_kv(char *start, char *end)
+todos **post_method(char *start)
 {
-    char *sep;
+    char *token;
+    static todos **head;
+    todos *temp, *new;
 
-    sep = strstr(start, ": ");
-    if (!sep)
-        return (0);
-    printf("Header: \"%.*s\" -> \"%.*s\"\n", 
-            (int)(sep - start), start,
-             (int)(end - sep - 2), (sep + 2));
-
-    return(1);
-}
-
-void task7_breakdown(char * message_received)
-{
-    char *path, *end, *start;
-
-    path = strstr(message_received, "/");
-    end = strstr(path, " "); 
-    printf("Path: %.*s\n", (int)(end - path), path);
-    start = strstr(message_received, "\r\n\r\n") + 4;
-    start = strtok(start, "=");
-    while (start)
+    new = calloc(1, sizeof(client_info));
+    token = strtok(start, "=");
+    if (token == NULL)
+        return (NULL);
+    token = strtok(NULL, "&");
+    if (token == NULL)
+        return (NULL);
+    new->title = strdup(token);
+    token = strtok(NULL, "=");
+    if (token == NULL)
+        return (NULL);
+    token = strtok(NULL, "\r\n");
+    if (token == NULL)
+        return (NULL);
+    new->description = strdup(token);
+    new->next = NULL;
+    if (!head)
+        *head = new;
+    else
     {
-        printf("Body param: \"%s\" -> ", start);
-        start = strtok(NULL, "&");
-        printf("\"%s\"\n", start);
-        start = strtok(NULL, "=");
+        temp = &head;
+        new->next = temp;
+        *head = new;
     }
-    fflush(stdout);
+    return(head);
+}   
+
+void get_method(char *start, client_info *client)
+{
+    char message_sent[1024];
+    size_t message_size = sizeof(message_sent);
+    snprintf(message_sent, sizeof(message_sent),
+            "404 Not Found\r\n");
+    send(client->clientfd, message_sent, message_size, 0);
+
 }
