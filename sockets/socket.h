@@ -16,6 +16,7 @@ typedef struct todos {
     struct todos *next;
     char *title;
     char *description;
+    int id;
 } todos;
 
 typedef struct client_info {
@@ -38,6 +39,7 @@ char *request_received_api(client_info *client);
 int parse_request(char *msgrcv, client_info *client);
 todos **post_method(char *start);
 void get_method(todos **head, client_info *client);
+char *construct_json(todos **head);
 
 
 

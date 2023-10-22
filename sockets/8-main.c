@@ -16,7 +16,7 @@ int main(void)
 		
 		client = accept_connection_api(socketfd);
 		msgrcv = request_received_api(client);
-        parse_request(msgrcv);
+        parse_request(msgrcv, client);
 	}
 	return (0);
 }

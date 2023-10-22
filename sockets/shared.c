@@ -77,7 +77,6 @@ char *request_received_api(client_info *client)
     char message_received[4096], message_sent[4096], *msgrcv;
     ssize_t byte_received;
     size_t message_size = sizeof(message_sent);
-    int error;
 
     byte_received = recv(client->clientfd, message_received, sizeof(message_received), 0);
 	if (byte_received < 1)
@@ -95,15 +94,15 @@ char *request_received_api(client_info *client)
 
 int parse_request(char *msgrcv, client_info *client)
 {
-    char *start, *method, *path, message_sent[1024];
-    size_t msglen, sent_len;
-    todos **head;
+    char *start, *method, *path, *body, message_sent[1024], *msg_copy;
+    int msglen;
+    todos **head = NULL;
 
-    printf("%s\n", msgrcv);
-    start = strdup(msgrcv);
-    method = strtok(msgrcv, " ");
+    msg_copy = strdup(msgrcv);
+    method = strtok(msg_copy, " ");
     path = strtok(NULL, " ");
-    start = strstr(start, "\r\n\r\n") + 4;
+    start = strstr(msgrcv, "\r\n\r\n") + 4;
+    printf("%s\n", start);
     msglen = strlen(start);
     if (strcmp(path, "/todos") != 0)
         return (-1);
@@ -115,22 +114,32 @@ int parse_request(char *msgrcv, client_info *client)
             snprintf(message_sent, sizeof(message_sent),
              "422 Unprocessable Entity\r\n");
             send(client->clientfd, message_sent, sizeof(message_sent), 0);
-        }   
+        }
+        else
+        {
+            body = construct_json(head);
+            snprintf(message_sent, sizeof(message_sent),
+             "HTTP/1.1 201 Created\r\nContent-Length:%d\r\nContent-Type: application/json\r\n\r\n%s",
+              msglen, body);
+            send(client->clientfd, message_sent, sizeof(message_sent), 0);
+        }  
     }
     else if (strcmp(method, "GET") == 0)
         get_method(head, client);
     else
         return (-1);
-    
+    return(0);
 }
 
 todos **post_method(char *start)
 {
     char *token;
-    static todos **head;
+    todos **head;
     todos *temp, *new;
+    static int id = 0;
 
-    new = calloc(1, sizeof(client_info));
+    head = calloc(1, sizeof(todos));
+    new = calloc(1, sizeof(todos));
     token = strtok(start, "=");
     if (token == NULL)
         return (NULL);
@@ -145,24 +154,41 @@ todos **post_method(char *start)
     if (token == NULL)
         return (NULL);
     new->description = strdup(token);
-    new->next = NULL;
+    new->next = NULL;;
+    new->id = id;
     if (!head)
         *head = new;
     else
     {
-        temp = &head;
+        temp = *head;
         new->next = temp;
         *head = new;
     }
+    id++;
     return(head);
 }   
 
-void get_method(char *start, client_info *client)
+void get_method(todos **head, client_info *client)
 {
     char message_sent[1024];
     size_t message_size = sizeof(message_sent);
     snprintf(message_sent, sizeof(message_sent),
             "404 Not Found\r\n");
     send(client->clientfd, message_sent, message_size, 0);
+    if(!head)
+        return;
+
+}
+char *construct_json(todos **head)
+{
+    todos *temp;
+    char jsonstr[512], *strp;
+
+    temp = *head;
+    snprintf(jsonstr, sizeof(jsonstr),
+         "{\"id\":%d,\"title\":\"%s\",\"description\":\"%s\"}",
+         temp->id, temp->title, temp->description);
+    strp = jsonstr;
+    return(strp);
 
 }
