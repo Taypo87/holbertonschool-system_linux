@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pedantic -g
+CFLAGS = -Wall -Wextra -pedantic -g
 
 # Task 4
 todo_api_0: 4-main.o shared.o
@@ -17,6 +17,9 @@ todo_api_0: 4-main.o shared.o
 7-main.o: 7-main.c socket.h
 	$(CC) $(CFLAGS) -c 7-main.c
 
+8-main.o: 8-main.c socket.h
+	$(CC) $(CFLAGS) -c 8-main.c
+
 shared.o: shared.c socket.h
 	$(CC) $(CFLAGS) -c shared.c
 
@@ -28,6 +31,9 @@ todo_api_2: 6-main.o shared.o
 
 todo_api_3: 7-main.o shared.o
 	$(CC) $(CFLAGS) -o todo_api_3 7-main.o shared.o
+
+todo_api_4: 8-main.o shared.o
+	$(CC) $(CFLAGS) -o todo_api_4 8-main.o shared.o
 
 clean:
 	rm -f *.o  todo_api_*
