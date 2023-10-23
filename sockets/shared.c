@@ -74,12 +74,12 @@ struct client_info *accept_connection_api(int socketfd)
 char *request_received_api(client_info *client)
 {
     //use this function to parse and check the request
-    char message_sent[8162], *message_received;
+    char message_sent[2048], *message_received;
     ssize_t byte_received;
-    size_t message_size = 8162;
+    size_t message_size = 2048;
 
-    message_received = calloc(8162, sizeof(char));
-    byte_received = recv(client->clientfd, message_received, 8162, 0);
+    message_received = calloc(2048, sizeof(char));
+    byte_received = recv(client->clientfd, message_received, 2048, 0);
 	if (byte_received < 1)
         return(NULL);
     message_received[byte_received] = '\0';
@@ -96,7 +96,7 @@ char *request_received_api(client_info *client)
 
 int parse_request(char *msgrcv, client_info *client)
 {
-    char *start, *method, *path, *body, message_sent[8162], *msg_copy;
+    char *start, *method, *path, *body, message_sent[2048], *msg_copy;
     int msglen;
     todos **head = NULL;
 
@@ -121,7 +121,7 @@ int parse_request(char *msgrcv, client_info *client)
         {
             body = construct_json(head);
             msglen = strlen(body);
-            snprintf(message_sent, 8162,
+            snprintf(message_sent, 2048,
              "HTTP/1.1 201 Created\r\nContent-Length: %d\r\nContent-Type: application/json\r\n\r\n%s",
               msglen, body);
             printf("%s\n", message_sent);
