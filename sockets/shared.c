@@ -170,8 +170,8 @@ todos **post_method(char *start)
     }
     else if (strcmp(key2, "title") == 0)
     {
-        new->title = value1;
-        new->description = value2;
+        new->title = value2;
+        new->description = value1;
     }
     else
         return (NULL);
