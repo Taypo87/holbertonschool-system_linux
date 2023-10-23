@@ -87,7 +87,6 @@ char *request_received_api(client_info *client)
         snprintf(message_sent, 27,
              "HTTP/1.1 404 Not Found\r\n\r\n");
         send(client->clientfd, message_sent, 27, 0);
-        //close(client->clientfd);
         return (NULL);
     }
     return (message_received);
