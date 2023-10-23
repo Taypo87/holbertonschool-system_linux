@@ -15,7 +15,7 @@ int initiate_socket()
 
     return (socketfd);
 }
-
+/*
 int accept_connection(int socketfd)
 {
     socklen_t *inbound_addrlength = calloc(1, sizeof(socklen_t));
@@ -34,7 +34,7 @@ int accept_connection(int socketfd)
 
 char * request_received(int clientfd)
 {
-    char message_received[4096], message_sent[4096], *msgrcv;
+    char message_received[8162], message_sent[8162], *msgrcv;
     ssize_t byte_received;
     size_t message_size = sizeof(message_sent);
 
@@ -51,7 +51,7 @@ char * request_received(int clientfd)
     }
     return (msgrcv);
 }
-
+*/
 struct client_info *accept_connection_api(int socketfd)
 {
     socklen_t *inbound_addrlength = calloc(1, sizeof(socklen_t));
@@ -74,12 +74,12 @@ struct client_info *accept_connection_api(int socketfd)
 char *request_received_api(client_info *client)
 {
     //use this function to parse and check the request
-    char message_sent[4096], *message_received;
+    char message_sent[8162], *message_received;
     ssize_t byte_received;
-    size_t message_size = 4096;
+    size_t message_size = 8162;
 
-    message_received = calloc(4096, sizeof(char));
-    byte_received = recv(client->clientfd, message_received, 4096, 0);
+    message_received = calloc(8162, sizeof(char));
+    byte_received = recv(client->clientfd, message_received, 8162, 0);
 	if (byte_received < 1)
         return(NULL);
     message_received[byte_received] = '\0';
@@ -96,10 +96,9 @@ char *request_received_api(client_info *client)
 
 int parse_request(char *msgrcv, client_info *client)
 {
-    char *start, *method, *path, *body, message_sent[4096], *msg_copy;
+    char *start, *method, *path, *body, message_sent[8162], *msg_copy;
     int msglen;
     todos **head = NULL;
-
 
     //printf("%s\n", msgrcv);
     msg_copy = strdup(msgrcv);
@@ -107,7 +106,6 @@ int parse_request(char *msgrcv, client_info *client)
     path = strtok(NULL, " ");
     start = strstr(msgrcv, "\r\n\r\n") + 4;
     //printf("%s\n", start);
-    msglen = strlen(start);
     if (strcmp(path, "/todos") != 0)
         return (-1);
     if (strcmp(method, "POST") == 0)
@@ -122,11 +120,12 @@ int parse_request(char *msgrcv, client_info *client)
         else
         {
             body = construct_json(head);
-            snprintf(message_sent, sizeof(message_sent),
+            msglen = strlen(body);
+            snprintf(message_sent, 8162,
              "HTTP/1.1 201 Created\r\nContent-Length: %d\r\nContent-Type: application/json\r\n\r\n%s",
               msglen, body);
-            //printf("%s\n", message_sent);
-            send(client->clientfd, message_sent, sizeof(message_sent), 0);
+            printf("%s\n", message_sent);
+            send(client->clientfd, message_sent, 8162, 0);
         }  
     }
     else if (strcmp(method, "GET") == 0)
@@ -187,10 +186,10 @@ void get_method(todos **head, client_info *client)
 char *construct_json(todos **head)
 {
     todos *temp;
-    char jsonstr[1024], *strp = calloc(1024, sizeof(char));
+    char jsonstr[1024], *strp;
 
     temp = *head;
-    snprintf(jsonstr, sizeof(jsonstr),
+    snprintf(jsonstr, 1024,
          "{\"id\":%d,\"title\":\"%s\",\"description\":\"%s\"}",
          temp->id, temp->title, temp->description);
     strp = jsonstr;
