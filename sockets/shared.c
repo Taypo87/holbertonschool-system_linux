@@ -106,16 +106,17 @@ int parse_request(char *msgrcv, client_info *client)
     path = strtok(NULL, " ");
     start = strstr(msgrcv, "\r\n\r\n") + 4;
     //printf("%s\n", start);
-    //if (strcmp(path, "/todos") != 0)
-        //return (-1);
+    if (strcmp(path, "/todos") != 0)
+        return (-1);
     if (strcmp(method, "POST") == 0)
     {
         head = post_method(start);
-        if(!head || strcmp(path, "/todos") != 0)
+        if(!head)
         {
             snprintf(message_sent, sizeof(message_sent),
              "HTTP/1.1 422 Unprocessable Entity\r\n");
             send(client->clientfd, message_sent, sizeof(message_sent), 0);
+            return (0);
         }
         else
         {
