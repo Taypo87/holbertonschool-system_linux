@@ -111,7 +111,7 @@ int parse_request(char *msgrcv, client_info *client)
     if (strcmp(method, "POST") == 0)
     {
         head = post_method(start);
-        if(!head)
+        if(!head || strcmp(path, "/todos") != 0)
         {
             snprintf(message_sent, sizeof(message_sent),
              "422 Unprocessable Entity\r\n");
