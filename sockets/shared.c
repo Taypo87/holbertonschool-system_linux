@@ -76,7 +76,6 @@ char *request_received_api(client_info *client)
     //use this function to parse and check the request
     char message_sent[2048], *message_received;
     ssize_t byte_received;
-    size_t message_size = 2048;
 
     message_received = calloc(2048, sizeof(char));
     byte_received = recv(client->clientfd, message_received, 2048, 0);
@@ -86,9 +85,9 @@ char *request_received_api(client_info *client)
     //printf("%s bytes:%ld\n", message_received, byte_received);
     if (parse_request(message_received, client) < 0)
     {
-        snprintf(message_sent, sizeof(message_sent),
+        snprintf(message_sent, 2048,
              "HTTP/1.1 404 Not Found\r\n");
-        send(client->clientfd, message_sent, message_size, 0);
+        send(client->clientfd, message_sent, 2048, 0);
     }
     return (message_received);
 }
