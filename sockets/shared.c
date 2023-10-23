@@ -106,8 +106,8 @@ int parse_request(char *msgrcv, client_info *client)
     path = strtok(NULL, " ");
     start = strstr(msgrcv, "\r\n\r\n") + 4;
     //printf("%s\n", start);
-    if (strcmp(path, "/todos") != 0)
-        return (-1);
+    //if (strcmp(path, "/todos") != 0)
+        //return (-1);
     if (strcmp(method, "POST") == 0)
     {
         head = post_method(start);
