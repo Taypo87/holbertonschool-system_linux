@@ -115,7 +115,7 @@ int parse_request(char *msgrcv, client_info *client)
         head = post_method(start);
         if(!head)
         {
-            snprintf(message_sent, sizeof(message_sent),
+            snprintf(message_sent, 37,
              "HTTP/1.1 422 Unprocessable Entity\r\n\r\n");
             send(client->clientfd, message_sent, sizeof(message_sent), 0);
             return (0);
