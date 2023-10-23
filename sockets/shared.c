@@ -116,7 +116,7 @@ int parse_request(char *msgrcv, client_info *client)
         if(!head)
         {
             snprintf(message_sent, sizeof(message_sent),
-             "HTTP/1.1 422 Unprocessable Entity\r\n");
+             "HTTP/1.1 422 Unprocessable Entity\r\n\r\n");
             send(client->clientfd, message_sent, sizeof(message_sent), 0);
             return (0);
         }
@@ -140,7 +140,7 @@ int parse_request(char *msgrcv, client_info *client)
 
 todos **post_method(char *start)
 {
-    char *token;
+    char *token, *key1, *value1, *key2, *value2;
     todos **head;
     todos *temp, *new;
     static int id = 0;
@@ -148,23 +148,34 @@ todos **post_method(char *start)
     head = calloc(1, sizeof(todos));
     new = calloc(1, sizeof(todos));
     token = strtok(start, "=");
-    if (strcmp(token, "title") != 0)
-        return (NULL);
+    key1 = strdup(token);
     if (token == NULL)
         return (NULL);
     token = strtok(NULL, "&");
     if (token == NULL)
-        return (NULL);
-    new->title = strdup(token);
+        return (NULL); 
+    value1 = strdup(token);
     token = strtok(NULL, "=");
-    if (strcmp(token, "description") != 0)
-        return (NULL);
     if (token == NULL)
         return (NULL);
+    key2 = strdup(token);
     token = strtok(NULL, "\r\n");
     if (token == NULL)
         return (NULL);
-    new->description = strdup(token);
+    value2 = strdup(token);
+    if (strcmp(key1, "title") == 0)
+    {
+        new->title = value1;
+        new->description = value2;
+    }
+    else if (strcmp(key2, "title") == 0)
+    {
+        new->title = value1;
+        new->description = value2;
+    }
+    else
+        return (NULL);
+
     new->next = NULL;;
     new->id = id;
     if (!head)
@@ -184,7 +195,7 @@ void get_method(todos **head, client_info *client)
     char message_sent[1024];
     size_t message_size = sizeof(message_sent);
     snprintf(message_sent, sizeof(message_sent),
-            "404 Not Found\r\n");
+            "404 Not Found\r\n\r\n");
     send(client->clientfd, message_sent, message_size, 0);
     if(!head)
         return;
