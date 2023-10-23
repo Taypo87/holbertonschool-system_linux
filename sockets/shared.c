@@ -87,7 +87,7 @@ char *request_received_api(client_info *client)
     if (parse_request(message_received, client) < 0)
     {
         snprintf(message_sent, sizeof(message_sent),
-             "404 Not Found\r\n");
+             "HTTP/1.1 404 Not Found\r\n");
         send(client->clientfd, message_sent, message_size, 0);
     }
     return (message_received);
@@ -114,7 +114,7 @@ int parse_request(char *msgrcv, client_info *client)
         if(!head || strcmp(path, "/todos") != 0)
         {
             snprintf(message_sent, sizeof(message_sent),
-             "422 Unprocessable Entity\r\n");
+             "HTTP/1.1 422 Unprocessable Entity\r\n");
             send(client->clientfd, message_sent, sizeof(message_sent), 0);
         }
         else
@@ -145,6 +145,8 @@ todos **post_method(char *start)
     head = calloc(1, sizeof(todos));
     new = calloc(1, sizeof(todos));
     token = strtok(start, "=");
+    if (strcmp(token, "title") != 0)
+        return (NULL);
     if (token == NULL)
         return (NULL);
     token = strtok(NULL, "&");
@@ -152,6 +154,8 @@ todos **post_method(char *start)
         return (NULL);
     new->title = strdup(token);
     token = strtok(NULL, "=");
+    if (strcmp(token, "description") != 0)
+        return (NULL);
     if (token == NULL)
         return (NULL);
     token = strtok(NULL, "\r\n");
