@@ -87,7 +87,7 @@ char *request_received_api(client_info *client)
         snprintf(message_sent, 27,
              "HTTP/1.1 404 Not Found\r\n\r\n");
         send(client->clientfd, message_sent, 27, 0);
-        close(client->clientfd);
+        //close(client->clientfd);
         return (NULL);
     }
     return (message_received);
@@ -193,10 +193,9 @@ todos **post_method(char *start)
 void get_method(todos **head, client_info *client)
 {
     char message_sent[1024];
-    size_t message_size = sizeof(message_sent);
-    snprintf(message_sent, sizeof(message_sent),
-            "404 Not Found\r\n\r\n");
-    send(client->clientfd, message_sent, message_size, 0);
+    snprintf(message_sent, 27,
+            "HTTP/1.1 404 Not Found\r\n\r\n");
+    send(client->clientfd, message_sent, 27, 0);
     if(!head)
         return;
 
