@@ -84,9 +84,9 @@ char *request_received_api(client_info *client)
     //printf("%s bytes:%ld\n", message_received, byte_received);
     if (parse_request(message_received, client) < 0)
     {
-        snprintf(message_sent, 27,
+        snprintf(message_sent, 26,
              "HTTP/1.1 404 Not Found\r\n\r\n");
-        send(client->clientfd, message_sent, 27, 0);
+        send(client->clientfd, message_sent, 26, 0);
         close(client->clientfd);
         return (NULL);
     }
@@ -115,9 +115,9 @@ int parse_request(char *msgrcv, client_info *client)
         head = post_method(start);
         if(!head)
         {
-            snprintf(message_sent, 38,
-             "HTTP/1.1 422 Unprocessable Entity\r\n\r\n");
-            send(client->clientfd, message_sent, 38, 0);
+            snprintf(message_sent, 37,
+            "HTTP/1.1 422 Unprocessable Entity\r\n\r\n");
+            send(client->clientfd, message_sent, 37, 0);
             close(client->clientfd);
             return (0);
         }
@@ -126,7 +126,7 @@ int parse_request(char *msgrcv, client_info *client)
             body = construct_json(head);
             msglen = strlen(body);
             snprintf(message_sent, 2048,
-             "HTTP/1.1 201 Created\r\nContent-Length: %d\r\nContent-Type: application/json\r\n\r\n%s",
+            "HTTP/1.1 201 Created\r\nContent-Length: %d\r\nContent-Type: application/json\r\n\r\n%s",
               msglen, body);
             printf("%s\n", message_sent);
             send(client->clientfd, message_sent, 8162, 0);
