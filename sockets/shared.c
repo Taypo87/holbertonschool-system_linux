@@ -86,8 +86,10 @@ char *request_received_api(client_info *client)
     if (parse_request(message_received, client) < 0)
     {
         snprintf(message_sent, 2048,
-             "HTTP/1.1 404 Not Found\r\n");
-        send(client->clientfd, message_sent, 2048, 0);
+             "HTTP/1.1 404 Not Found\r\n\r\n");
+        send(client->clientfd, message_sent, 26, 0);
+        close(client->clientfd);
+        return (NULL);
     }
     return (message_received);
 }
@@ -100,6 +102,8 @@ int parse_request(char *msgrcv, client_info *client)
     todos **head = NULL;
 
     //printf("%s\n", msgrcv);
+    if (!msgrcv)
+        return(0);
     msg_copy = strdup(msgrcv);
     method = strtok(msg_copy, " ");
     path = strtok(NULL, " ");

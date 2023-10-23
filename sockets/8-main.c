@@ -6,7 +6,6 @@
 int main(void)
 {
 	int socketfd, backlog = 8;
-    char *msgrcv;
     client_info *client;
 
 	socketfd = initiate_socket();
@@ -15,8 +14,8 @@ int main(void)
 	{
 		
 		client = accept_connection_api(socketfd);
-		msgrcv = request_received_api(client);
-        parse_request(msgrcv, client);
+		request_received_api(client);
+    
 	}
 	return (0);
 }
