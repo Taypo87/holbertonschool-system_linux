@@ -84,7 +84,7 @@ char *request_received_api(client_info *client)
     //printf("%s bytes:%ld\n", message_received, byte_received);
     if (parse_request(message_received, client) < 0)
     {
-        snprintf(message_sent, 2048,
+        snprintf(message_sent, 26,
              "HTTP/1.1 404 Not Found\r\n\r\n");
         send(client->clientfd, message_sent, 26, 0);
         close(client->clientfd);
