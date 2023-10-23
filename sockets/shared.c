@@ -74,35 +74,39 @@ struct client_info *accept_connection_api(int socketfd)
 char *request_received_api(client_info *client)
 {
     //use this function to parse and check the request
-    char message_received[4096], message_sent[4096], *msgrcv;
+    char message_sent[4096], *message_received;
     ssize_t byte_received;
-    size_t message_size = sizeof(message_sent);
+    size_t message_size = 4096;
 
-    byte_received = recv(client->clientfd, message_received, sizeof(message_received), 0);
+    message_received = calloc(4096, sizeof(char));
+    byte_received = recv(client->clientfd, message_received, 4096, 0);
 	if (byte_received < 1)
         return(NULL);
-	msgrcv = message_received;
-    if (parse_request(msgrcv, client) < 0)
+    message_received[byte_received] = '\0';
+    //printf("%s bytes:%ld\n", message_received, byte_received);
+    if (parse_request(message_received, client) < 0)
     {
         snprintf(message_sent, sizeof(message_sent),
              "404 Not Found\r\n");
         send(client->clientfd, message_sent, message_size, 0);
     }
-    return (msgrcv);
+    return (message_received);
 }
 
 
 int parse_request(char *msgrcv, client_info *client)
 {
-    char *start, *method, *path, *body, message_sent[1024], *msg_copy;
+    char *start, *method, *path, *body, message_sent[4096], *msg_copy;
     int msglen;
     todos **head = NULL;
 
+
+    //printf("%s\n", msgrcv);
     msg_copy = strdup(msgrcv);
     method = strtok(msg_copy, " ");
     path = strtok(NULL, " ");
     start = strstr(msgrcv, "\r\n\r\n") + 4;
-    printf("%s\n", start);
+    //printf("%s\n", start);
     msglen = strlen(start);
     if (strcmp(path, "/todos") != 0)
         return (-1);
@@ -119,8 +123,9 @@ int parse_request(char *msgrcv, client_info *client)
         {
             body = construct_json(head);
             snprintf(message_sent, sizeof(message_sent),
-             "HTTP/1.1 201 Created\r\nContent-Length:%d\r\nContent-Type: application/json\r\n\r\n%s",
+             "HTTP/1.1 201 Created\r\nContent-Length: %d\r\nContent-Type: application/json\r\n\r\n%s",
               msglen, body);
+            //printf("%s\n", message_sent);
             send(client->clientfd, message_sent, sizeof(message_sent), 0);
         }  
     }
@@ -182,13 +187,14 @@ void get_method(todos **head, client_info *client)
 char *construct_json(todos **head)
 {
     todos *temp;
-    char jsonstr[512], *strp;
+    char jsonstr[1024], *strp = calloc(1024, sizeof(char));
 
     temp = *head;
     snprintf(jsonstr, sizeof(jsonstr),
          "{\"id\":%d,\"title\":\"%s\",\"description\":\"%s\"}",
          temp->id, temp->title, temp->description);
     strp = jsonstr;
+    //printf("%s\n", jsonstr);
     return(strp);
 
 }
