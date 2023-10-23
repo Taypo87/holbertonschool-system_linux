@@ -73,7 +73,6 @@ struct client_info *accept_connection_api(int socketfd)
 
 char *request_received_api(client_info *client)
 {
-    //use this function to parse and check the request
     char message_sent[2048], *message_received;
     ssize_t byte_received;
 
