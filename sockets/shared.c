@@ -160,7 +160,7 @@ todos **post_method(char *start)
     if (token == NULL)
         return (NULL);
     key2 = strdup(token);
-    token = strtok(NULL, "\r\n");
+    token = strtok(NULL, " \r\n");
     if (token == NULL)
         return (NULL);
     value2 = strdup(token);
