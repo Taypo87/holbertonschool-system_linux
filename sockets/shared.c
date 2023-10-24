@@ -148,19 +148,19 @@ todos **post_method(char *start)
 
     head = calloc(1, sizeof(todos));
     new = calloc(1, sizeof(todos));
-    token = strtok(start, "=&\r\n");
+    token = strtok(start, " =&\r\n");
     key1 = strdup(token);
     if (token == NULL)
         return (NULL);
-    token = strtok(NULL, "=&\r\n");
+    token = strtok(NULL, " =&\r\n");
     if (token == NULL)
         return (NULL); 
     value1 = strdup(token);
-    token = strtok(NULL, "=&\r\n");
+    token = strtok(NULL, " =&\r\n");
     if (token == NULL)
         return (NULL);
     key2 = strdup(token);
-    token = strtok(NULL, "=&\r\n");
+    token = strtok(NULL, " =&\r\n");
     if (token == NULL)
         return (NULL);
     value2 = strdup(token);
