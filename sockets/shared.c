@@ -84,9 +84,9 @@ char *request_received_api(client_info *client)
     //printf("%s bytes:%ld\n", message_received, byte_received);
     if (parse_request(message_received, client) < 0)
     {
-        snprintf(message_sent, 26,
-             "HTTP/1.1 404 Not Found\r\n\n");
-        send(client->clientfd, message_sent, 26, 0);
+        snprintf(message_sent, 27,
+             "HTTP/1.1 404 Not Found\r\n\r\n");
+        send(client->clientfd, message_sent, 27, 0);
         close(client->clientfd);
         return (NULL);
     }
@@ -115,9 +115,9 @@ int parse_request(char *msgrcv, client_info *client)
         head = post_method(start);
         if(!head)
         {
-            snprintf(message_sent, 37,
-            "HTTP/1.1 422 Unprocessable Entity\r\n\n");
-            send(client->clientfd, message_sent, 37, 0);
+            snprintf(message_sent, 38,
+            "HTTP/1.1 422 Unprocessable Entity\r\n\r\n");
+            send(client->clientfd, message_sent, 38, 0);
             close(client->clientfd);
             return (0);
         }
@@ -152,7 +152,7 @@ todos **post_method(char *start)
     key1 = strdup(token);
     if (token == NULL)
         return (NULL);
-    token = strtok(NULL, "&");
+    token = strtok(NULL, "\r\n &");
     if (token == NULL)
         return (NULL); 
     value1 = strdup(token);
@@ -194,9 +194,9 @@ todos **post_method(char *start)
 void get_method(todos **head, client_info *client)
 {
     char message_sent[1024];
-    snprintf(message_sent, 27,
+    snprintf(message_sent, 28,
             "HTTP/1.1 404 Not Found\r\n\r\n");
-    send(client->clientfd, message_sent, 27, 0);
+    send(client->clientfd, message_sent, 28, 0);
     if(!head)
         return;
 
