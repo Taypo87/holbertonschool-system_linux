@@ -85,7 +85,7 @@ char *request_received_api(client_info *client)
     if (parse_request(message_received, client) < 0)
     {
         snprintf(message_sent, 26,
-             "HTTP/1.1 404 Not Found\n\r\n");
+             "HTTP/1.1 404 Not Found\r\n\n");
         send(client->clientfd, message_sent, 26, 0);
         close(client->clientfd);
         return (NULL);
@@ -116,7 +116,7 @@ int parse_request(char *msgrcv, client_info *client)
         if(!head)
         {
             snprintf(message_sent, 37,
-            "HTTP/1.1 422 Unprocessable Entity\n\r\n");
+            "HTTP/1.1 422 Unprocessable Entity\r\n\n");
             send(client->clientfd, message_sent, 37, 0);
             close(client->clientfd);
             return (0);
