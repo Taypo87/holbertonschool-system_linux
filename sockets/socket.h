@@ -14,6 +14,7 @@
 
 typedef struct todos {
     struct todos *next;
+    struct todos *prev;
     char *title;
     char *description;
     int id;
@@ -23,6 +24,12 @@ typedef struct client_info {
     int clientfd;
     char *clientip;
 } client_info;
+
+typedef struct todo_list {
+    struct todos **head;
+    struct todos **tail;
+    int size;
+} todo_list;
 
 
 void requst_breakdown_printout(void *message_received);
@@ -37,9 +44,9 @@ void task8_breakdown(char *msgrcv);
 struct client_info *accept_connection_api(int socketfd);
 char *request_received_api(client_info *client);
 int parse_request(char *msgrcv, client_info *client);
-todos **post_method(char *start);
-void get_method(todos **head, client_info *client);
-char *construct_json(todos **head);
+todo_list *post_method(char *start);
+void get_method(todo_list *list, client_info *client);
+char *construct_json(todos *node);
 
 
 

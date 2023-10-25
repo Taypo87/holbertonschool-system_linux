@@ -87,7 +87,7 @@ char *request_received_api(client_info *client)
         snprintf(message_sent, 27,
              "HTTP/1.1 404 Not Found\r\n\r\n");
         send(client->clientfd, message_sent, 27, 0);
-        //close(client->clientfd);
+        close(client->clientfd);
         return (NULL);
     }
     return (message_received);
@@ -98,7 +98,8 @@ int parse_request(char *msgrcv, client_info *client)
 {
     char *start, *method, *path, *body, message_sent[2048], *msg_copy;
     int msglen;
-    todos **head = NULL;
+    todos **head = NULL, *temp;
+    todo_list *list;
 
     //printf("%s\n", msgrcv);
     if (!msgrcv)
@@ -112,8 +113,8 @@ int parse_request(char *msgrcv, client_info *client)
         return (-1);
     if (strcmp(method, "POST") == 0)
     {
-        head = post_method(start);
-        if(!head)
+        list = post_method(start);
+        if(!list)
         {
             snprintf(message_sent, 38,
             "HTTP/1.1 422 Unprocessable Entity\r\n\r\n");
@@ -123,7 +124,8 @@ int parse_request(char *msgrcv, client_info *client)
         }
         else
         {
-            body = construct_json(head);
+            head = list->head;
+            body = construct_json(*head);
             msglen = strlen(body);
             snprintf(message_sent, 2048,
             "HTTP/1.1 201 Created\r\nContent-Length: %d\r\nContent-Type: application/json\r\n\r\n%s",
@@ -133,19 +135,25 @@ int parse_request(char *msgrcv, client_info *client)
         }  
     }
     else if (strcmp(method, "GET") == 0)
-        get_method(head, client);
+    {
+        if (!list)
+            empty_list(client);
+        get_method(list, client);
+    }
     else
         return (-1);
     return(0);
 }
 
-todos **post_method(char *start)
+todo_list *post_method(char *start)
 {
     char *token, *key1, *value1, *key2, *value2;
-    todos **head;
+    todos **head, **tail;
     todos *temp, *new;
+    todo_list *list;
     static int id = 0;
 
+    list = calloc(1, sizeof(todo_list));
     head = calloc(1, sizeof(todos));
     new = calloc(1, sizeof(todos));
     token = strtok(start, " =&\r\n");
@@ -177,36 +185,78 @@ todos **post_method(char *start)
     else
         return (NULL);
 
-    new->next = NULL;;
+    new->next = NULL;
+    new->prev = NULL;
     new->id = id;
     if (!head)
-        *head = new;
+    {
+        head = new;
+        tail = new;
+        list->head = head;
+        list->tail = tail;
+        list->size = id + 1
+    }
     else
     {
         temp = *head;
         new->next = temp;
         *head = new;
+        list->head = head;
+        temp->prev = new;
     }
     id++;
-    return(head);
+    return(list);
 }   
 
-void get_method(todos **head, client_info *client)
+void get_method(todo_list *list, client_info *client)
 {
-    char message_sent[1024];
-    snprintf(message_sent, 28,
-            "HTTP/1.1 404 Not Found\r\n\r\n");
-    send(client->clientfd, message_sent, 28, 0);
-    if(!head)
-        return;
+    todos *temp;
+    char **json_strngs, *json_body, message_sent[2048];
+    int arr_size = 0, i = 0, body_len, offset = 1, str_len;
 
+    arr_size = list->size;
+    json_strngs = (char**)malloc(sizeof(char*) * arr_size);
+    temp = list->tail;
+    while(temp)
+    {
+        json_strngs[i] = construct_json(temp);
+        temp = temp->prev;
+        i++;
+    }
+    for(i = 0; i < arr_size; i++)
+    {
+        if(json_strngs[i])
+            body_len += strlen(json_strngs[i]);
+    }
+    body_len += (arr_size + 1);
+    json_body = malloc(sizeof(char*) * body_len);
+    json_body[0] = '[';
+    for (i = 0; i < arr_size; i++) {
+        if (json_strngs[i] != NULL) {
+            str_len = strlen(json_strngs[i]);
+            strcpy(json_body + offset, json_strngs[i]);
+            offset += str_len;
+            if (i < arr_size - 1) {
+                json_body[offset] = ',';
+                offset++;
+            }
+        }
+    }
+    json_body[offset] = ']';
+    json_body[offset + 1] = '\0';
+    snprintf(message_sent, 2048,
+            "HTTP/1.1 200 OK\r\nContent-Length: %d\r\nContent-Type: application/json\r\n\r\n%s",
+              strlen(json_body), json_body);
+    send(client->clientfd, message_sent, 4096, 0);
 }
-char *construct_json(todos **head)
+char *construct_json(todos *node)
 {
     todos *temp;
     char jsonstr[1024], *strp;
 
-    temp = *head;
+    if (!node)
+        return (NULL);
+    temp = node;
     snprintf(jsonstr, 1024,
          "{\"id\":%d,\"title\":\"%s\",\"description\":\"%s\"}",
          temp->id, temp->title, temp->description);
@@ -214,4 +264,17 @@ char *construct_json(todos **head)
     //printf("%s\n", jsonstr);
     return(strp);
 
+}
+
+void empty_list(client_info *client)
+{
+    char arr[2], message_sent[2048];
+
+    arr[0] = '[';
+    arr[1] = ']';
+
+    snprintf(message_sent, 2048,
+            "HTTP/1.1 200 OK\r\nContent-Length: %d\r\nContent-Type: application/json\r\n\r\n%s",
+              2, arr);
+    send(client->clientfd, message_sent, 4096, 0);
 }

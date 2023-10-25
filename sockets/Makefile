@@ -35,6 +35,9 @@ todo_api_3: 7-main.o shared.o
 todo_api_4: 8-main.o shared.o
 	$(CC) $(CFLAGS) -o todo_api_4 8-main.o shared.o
 
+todo_api_5: 8-main.o shared.o
+	$(CC) $(CFLAGS) -o todo_api_5 8-main.o shared.o
+
 clean:
 	rm -f *.o  todo_api_*
 
