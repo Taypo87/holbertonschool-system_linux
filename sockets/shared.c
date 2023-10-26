@@ -98,17 +98,15 @@ int parse_request(char *msgrcv, client_info *client)
 {
     char *start, *method, *path, *body, message_sent[2048], *msg_copy;
     int msglen;
-    todos **head = NULL, *temp;
-    todo_list *list;
+    todos **head = NULL;
+    static todo_list *list = NULL;
 
-    //printf("%s\n", msgrcv);
     if (!msgrcv)
         return(0);
     msg_copy = strdup(msgrcv);
     method = strtok(msg_copy, " ");
     path = strtok(NULL, " ");
     start = strstr(msgrcv, "\r\n\r\n") + 4;
-    //printf("%s\n", start);
     if (strcmp(path, "/todos") != 0)
         return (-1);
     if (strcmp(method, "POST") == 0)
@@ -130,7 +128,6 @@ int parse_request(char *msgrcv, client_info *client)
             snprintf(message_sent, 2048,
             "HTTP/1.1 201 Created\r\nContent-Length: %d\r\nContent-Type: application/json\r\n\r\n%s",
               msglen, body);
-            printf("%s\n", message_sent);
             send(client->clientfd, message_sent, 8162, 0);
         }  
     }
@@ -148,13 +145,16 @@ int parse_request(char *msgrcv, client_info *client)
 todo_list *post_method(char *start)
 {
     char *token, *key1, *value1, *key2, *value2;
-    todos **head, **tail;
+    static todos **head, **tail;
     todos *temp, *new;
-    todo_list *list;
+    static todo_list *list;
     static int id = 0;
 
     list = calloc(1, sizeof(todo_list));
     head = calloc(1, sizeof(todos));
+    tail = calloc(1, sizeof(todos));
+    head = NULL;
+    tail = NULL;
     new = calloc(1, sizeof(todos));
     token = strtok(start, " =&\r\n");
     key1 = strdup(token);
@@ -190,19 +190,21 @@ todo_list *post_method(char *start)
     new->id = id;
     if (!head)
     {
-        head = new;
-        tail = new;
+        head = &new;
+        tail = &new;
         list->head = head;
         list->tail = tail;
-        list->size = id + 1
+        list->size = id + 1;
     }
     else
     {
         temp = *head;
         new->next = temp;
         *head = new;
-        list->head = head;
         temp->prev = new;
+        list->head = head;
+        list->size = id + 1;
+        
     }
     id++;
     return(list);
@@ -210,13 +212,14 @@ todo_list *post_method(char *start)
 
 void get_method(todo_list *list, client_info *client)
 {
-    todos *temp;
+    todos *temp, **tail;
     char **json_strngs, *json_body, message_sent[2048];
-    int arr_size = 0, i = 0, body_len, offset = 1, str_len;
+    int arr_size = 0, i = 0, body_len = 0, offset = 1, str_len;
 
     arr_size = list->size;
     json_strngs = (char**)malloc(sizeof(char*) * arr_size);
-    temp = list->tail;
+    tail = list->tail;
+    temp = *tail;
     while(temp)
     {
         json_strngs[i] = construct_json(temp);
@@ -246,7 +249,7 @@ void get_method(todo_list *list, client_info *client)
     json_body[offset + 1] = '\0';
     snprintf(message_sent, 2048,
             "HTTP/1.1 200 OK\r\nContent-Length: %d\r\nContent-Type: application/json\r\n\r\n%s",
-              strlen(json_body), json_body);
+              (int)strlen(json_body), json_body);
     send(client->clientfd, message_sent, 4096, 0);
 }
 char *construct_json(todos *node)

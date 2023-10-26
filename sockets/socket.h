@@ -47,6 +47,7 @@ int parse_request(char *msgrcv, client_info *client);
 todo_list *post_method(char *start);
 void get_method(todo_list *list, client_info *client);
 char *construct_json(todos *node);
+void empty_list(client_info *client);
 
 
 
